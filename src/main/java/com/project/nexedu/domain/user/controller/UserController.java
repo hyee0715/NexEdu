@@ -1,7 +1,7 @@
-package com.project.nexedu.controller.web;
+package com.project.nexedu.domain.user.controller;
 
-import com.project.nexedu.domain.dto.user.UserSignUpRequestDto;
-import com.project.nexedu.service.UserService;
+import com.project.nexedu.domain.user.dto.UserSignUpRequestDto;
+import com.project.nexedu.domain.user.service.UserService;
 import com.project.nexedu.validator.CheckNicknameValidator;
 import com.project.nexedu.validator.CheckUsernameValidator;
 import com.project.nexedu.validator.validation.user.*;

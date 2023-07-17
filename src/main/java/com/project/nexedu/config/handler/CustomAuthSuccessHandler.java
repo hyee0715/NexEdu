@@ -1,6 +1,6 @@
 package com.project.nexedu.config.handler;
 
-import com.project.nexedu.service.UserService;
+import com.project.nexedu.domain.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;

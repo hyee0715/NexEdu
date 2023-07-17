@@ -41,6 +41,7 @@ public class JwtSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(600);
+
         response.sendRedirect("http://localhost:8080/");
     }
 

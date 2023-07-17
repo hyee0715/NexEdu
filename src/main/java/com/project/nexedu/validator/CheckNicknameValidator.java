@@ -1,6 +1,6 @@
 package com.project.nexedu.validator;
 
-import com.project.nexedu.domain.dto.user.UserSignUpRequestDto;
+import com.project.nexedu.domain.user.dto.UserSignUpRequestDto;
 import com.project.nexedu.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
