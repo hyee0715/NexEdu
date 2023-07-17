@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/header :: header}">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+
+<body>
+<div class="container">
+    <main role="main" class="container">
+        <br><br>
+        <div class="p-5 mb-4 bg-light rounded-3">
+            <div class="container-fluid py-5">
+                <a sec:authorize="isAuthenticated()">
+                    <a th:text="${username}"></a>
+                    <a th:text="${nickname}"></a>
+                </a>
+            </div>
+        </div>
+    </main>
+</div> <!-- /container -->
+<div th:replace="~{fragments/footer :: footer}"/>
+
+</body>
+</html>
