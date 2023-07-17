@@ -1,12 +1,14 @@
-package com.project.nexedu.controller;
+package com.project.nexedu.domain.user.controller;
 
-import com.project.nexedu.domain.dto.user.UserSignUpRequestDto;
-import com.project.nexedu.service.UserService;
+import com.project.nexedu.domain.user.dto.UserSignUpRequestDto;
+import com.project.nexedu.domain.user.service.UserService;
 import com.project.nexedu.validator.CheckNicknameValidator;
 import com.project.nexedu.validator.CheckUsernameValidator;
 import com.project.nexedu.validator.validation.user.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +35,17 @@ public class UserApiController {
         try {
             userService.joinUser(dto);
             return ResponseEntity.ok("join success");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<String> index() {
+        try {
+            UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            return ResponseEntity.ok("Logged in user: " + user.getUsername());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

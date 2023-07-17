@@ -1,4 +1,4 @@
-package com.project.nexedu.domain.dto.user;
+package com.project.nexedu.domain.user.dto;
 
 import com.project.nexedu.domain.user.Role;
 import com.project.nexedu.domain.user.User;

@@ -1,13 +1,11 @@
-package com.project.nexedu.service;
+package com.project.nexedu.domain.user.service;
 
-import com.project.nexedu.domain.dto.user.UserSignUpRequestDto;
+import com.project.nexedu.domain.user.dto.UserSignUpRequestDto;
 import com.project.nexedu.domain.user.Role;
-import com.project.nexedu.domain.user.User;
 import com.project.nexedu.domain.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

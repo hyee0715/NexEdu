@@ -1,4 +1,4 @@
-package com.project.nexedu.controller.web;
+package com.project.nexedu;
 
 import com.project.nexedu.config.PrincipalDetails;
 import lombok.AllArgsConstructor;
