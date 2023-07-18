@@ -47,16 +47,11 @@ public class User extends Time {
         this.role = role;
     }
 
-    public User updateNickname(String nickname) {
+    public void update(String realName, String nickname, String password, String email) {
+        this.realName = realName;
         this.nickname = nickname;
-
-        return this;
-    }
-
-    public User updatePassword(String password) {
         this.password = password;
-
-        return this;
+        this.email = email;
     }
 
     public String getRoleKey() {

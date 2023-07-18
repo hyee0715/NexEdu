@@ -14,4 +14,6 @@ public interface StudyRepository extends JpaRepository<Study, Long> {
     List<Study> findByUser(User user);
     List<Study> findByLecture(Lecture lecture);
     Optional<Study> findByLectureAndUser(Lecture lecture, User user);
+
+    void deleteByUser(User user);
 }

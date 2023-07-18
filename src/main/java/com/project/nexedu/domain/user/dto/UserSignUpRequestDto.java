@@ -11,7 +11,6 @@ import lombok.*;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class UserSignUpRequestDto {
 
