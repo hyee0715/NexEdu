@@ -61,10 +61,14 @@ public class UserService {
         return encoder.encode(password);
     }
 
-    private User getCurrentUser() {
+    public User getCurrentUser() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
 
         return userRepository.findByUsername(username).orElseThrow(() -> new IllegalArgumentException("회원이 존재하지 않습니다."));
+    }
+
+    public boolean checkNicknameExist(String nickname) {
+        return userRepository.existsByNickname(nickname);
     }
 }
