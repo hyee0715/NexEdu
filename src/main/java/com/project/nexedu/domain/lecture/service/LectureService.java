@@ -6,6 +6,7 @@ import com.project.nexedu.domain.lecture.dto.LectureResponseDto;
 import com.project.nexedu.domain.lecture.dto.LectureSaveRequestDto;
 import com.project.nexedu.domain.lecture.dto.LectureUpdateRequestDto;
 import com.project.nexedu.domain.lecture.dto.LecturesResponseDto;
+import com.project.nexedu.domain.study.StudyRepository;
 import jakarta.transaction.Transactional;
 import lombok.*;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.List;
 public class LectureService {
 
     private final LectureRepository lectureRepository;
+    private final StudyRepository studyRepository;
 
     @Transactional
     public LectureResponseDto save(LectureSaveRequestDto lectureSaveRequestDto) {
@@ -50,6 +52,7 @@ public class LectureService {
     public Long delete(Long id) {
         Lecture lecture = lectureRepository.findById(id).orElseThrow(RuntimeException::new);
 
+        studyRepository.deleteByLecture(lecture);
         lectureRepository.delete(lecture);
         return id;
     }
