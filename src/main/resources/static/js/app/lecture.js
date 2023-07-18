@@ -47,20 +47,19 @@ var main = {
 
         var data = {
             title: $('#title').val(),
-            writer: $('#writer').val(),
-            content: $('#content').val(),
-            view: $('#view').val(),
-            writerId: $('#writerId').val()
+            description: $('#description').val(),
+            runningTime: $('#runningTime').val(),
+            instructorId: $('#instructorId').val()
         };
 
         $.ajax({
             type: 'POST',
-            url: '/api/board/write',
+            url: '/api/lecture/save',
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
-            alert('글이 등록되었습니다.');
+            alert('강의가 등록되었습니다.');
             window.location.href = '/';
         }).fail(function (error) {
             alert(JSON.stringify(error));
@@ -100,14 +99,16 @@ var main = {
 
         var data = {
             title: $('#title').val(),
-            content: $('#content').val()
+            description: $('#description').val(),
+            runningTime: $('#runningTime').val(),
+            instructorId: $('#instructorId').val()
         };
 
         var id = $('#id').val();
 
         $.ajax({
             type: 'PUT',
-            url: '/api/board/detail/update/'+id,
+            url: '/api/lecture/detail/update/'+id,
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
@@ -123,7 +124,7 @@ var main = {
 
         $.ajax({
             type: 'DELETE',
-            url: '/api/board/detail/delete/'+id,
+            url: '/api/lecture/detail/delete/'+id,
             dataType: 'json',
             contentType:'application/json; charset=utf-8'
         }).done(function() {

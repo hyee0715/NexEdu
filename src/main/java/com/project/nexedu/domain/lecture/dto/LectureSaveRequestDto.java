@@ -16,13 +16,15 @@ public class LectureSaveRequestDto {
     private User instructor;
     private String description;
     private long runningTime;
+    private Long instructorId;
 
     @Builder
-    public LectureSaveRequestDto(String title, User instructor, String description, long runningTime) {
+    public LectureSaveRequestDto(String title, User instructor, String description, long runningTime, Long instructorId) {
         this.title = title;
         this.instructor = instructor;
         this.description = description;
         this.runningTime = runningTime;
+        this.instructorId = instructorId;
     }
 
     public Lecture toEntity() {
