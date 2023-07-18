@@ -8,14 +8,37 @@
 <div class="container">
     <main role="main" class="container">
         <br><br>
+        <a class="btn btn-outline-dark"
+           th:href="@{/lecture/write}">강의 등록</a>
+
         <div class="p-5 mb-4 bg-light rounded-3">
             <div class="container-fluid py-5">
-                <a sec:authorize="isAuthenticated()">
-                    <a th:text="${username}"></a>
-                    <a th:text="${nickname}"></a>
-                </a>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div th:each="lecture : ${lectures.getLectures()}">
+                        <div class="col">
+                            <div class="card">
+<!--                                <img src="..." class="card-img-top" alt="...">-->
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <a th:href="'/lecture/detail/'+${lecture.id}" th:text="${lecture.title}" style="text-decoration:none; color: inherit;"></a>
+                                    </h4>
+                                    <div class="card-text" style="margin-top: 10px;">
+                                        강사 : <a th:text="${lecture.instructor.getNickname()}">instructor</a>
+                                    </div>
+                                    <div class="card-text" style="margin-top: 10px;">
+                                        분량 : <a th:text="${lecture.runningTime}">runningTime</a>분
+                                    </div>
+                                    <div class="card-text" style="margin-top: 10px;">
+                                        <a th:text="${lecture.description}">description</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
     </main>
 </div> <!-- /container -->
 <div th:replace="~{fragments/footer :: footer}"/>

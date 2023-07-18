@@ -12,4 +12,5 @@ public class LectureUpdateRequestDto {
     private String title;
     private String description;
     private long runningTime;
+    private Long instructorId;
 }
