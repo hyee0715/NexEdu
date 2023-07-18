@@ -1,14 +1,14 @@
 package com.project.nexedu.domain.user.controller;
 
+import com.project.nexedu.domain.user.dto.UserResponseDto;
 import com.project.nexedu.domain.user.dto.UserSignUpRequestDto;
+import com.project.nexedu.domain.user.dto.UserUpdateRequestDto;
 import com.project.nexedu.domain.user.service.UserService;
 import com.project.nexedu.validator.CheckNicknameValidator;
 import com.project.nexedu.validator.CheckUsernameValidator;
 import com.project.nexedu.validator.validation.user.*;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -40,14 +40,24 @@ public class UserApiController {
         }
     }
 
-    @GetMapping("/")
-    public ResponseEntity<String> index() {
-        try {
-            UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    @PutMapping("/user/update")
+    public ResponseEntity update(@RequestBody UserUpdateRequestDto userUpdateRequestDto) {
+        Long updatedUserId = userService.update(userUpdateRequestDto);
 
-            return ResponseEntity.ok("Logged in user: " + user.getUsername());
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        return ResponseEntity.ok("회원 정보 수정 완료, id = " + updatedUserId);
+    }
+
+    @GetMapping("/user/detail")
+    public ResponseEntity detail() {
+        UserResponseDto userResponseDto = userService.detail();
+
+        return ResponseEntity.ok(userResponseDto);
+    }
+
+    @DeleteMapping("/user/delete")
+    public ResponseEntity delete() {
+        userService.delete();
+
+        return ResponseEntity.ok("회원 삭제 완료");
     }
 }
