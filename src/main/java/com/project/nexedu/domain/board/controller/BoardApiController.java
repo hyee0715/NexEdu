@@ -48,6 +48,7 @@ public class BoardApiController {
     @DeleteMapping("/detail/delete/{id}")
     public ResponseEntity delete(@PathVariable Long id) {
         boardService.delete(id);
-        return ResponseEntity.status(HttpStatus.OK).body(id);
+
+        return ResponseEntity.ok(id);
     }
 }
