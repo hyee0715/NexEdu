@@ -105,10 +105,54 @@
             </div>
         </nav>
 
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                <div class="d-flex flex-column flex-shrink-0 p-3">
+                    <div class="container">
+                        <main role="main" class="container">
+                            <br>
+                            <h4 class="mb-3">수강 신청 목록</h4>
+                            <br>
 
+                            <div class="starter-template">
+                                <table class="table table-bordered">
+                                    <!-- CONTENTS !-->
+                                    <thead>
+                                    <tr style="text-align: center">
+                                        <th class="col-md-1">번호</th>
+                                        <th class="col-md-5">제목</th>
+                                        <th class="col-md-2">강사명</th>
+                                        <th class="col-md-1">분량</th>
+                                        <th class="col-md-2">게시 날짜</th>
+                                    </tr>
+                                    </thead>
 
+                                    <tbody>
+                                    <!-- CONTENTS !-->
+                                    <tr th:each="lecture : ${lectures}">
+                                        <td th:text="${lecture.id}" style="text-align: center"></td>
+                                        <td><a th:href="'/lecture/detail/'+${lecture.id}" th:text="${lecture.title}"
+                                               style="text-decoration:none; color: inherit;"></a></td>
+                                        <td th:text="${lecture.instructor.getNickname()}"
+                                            style="text-align: center"></td>
+                                        <td th:text="${lecture.runningTime} + '분'" style="text-align: center"></td>
+                                        <td th:text="${lecture.createdDate} ? ${#temporals.format(lecture.createdDate,'yyyy-MM-dd HH:mm')} : ${lecture.createdDate}"
+                                            style="text-align: center"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
 
+                                <div style="display: inline-block; float: right;"> <!-- 글쓰기 버튼 -->
+                                    <a style="float: right; margin-right: 15px;" class="btn btn-outline-dark"
+                                       th:href="@{/}">수강 신청 하기</a>
+                                </div>
+                            </div>
 
+                        </main>
+                    </div> <!-- /container -->
+                </div>
+            </div>
+        </main>
     </div>
 </div>
 

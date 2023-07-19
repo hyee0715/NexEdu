@@ -1,6 +1,9 @@
-package com.project.nexedu.domain.user.controller;
+package com.project.nexedu.domain.setting.controller;
 
-import com.project.nexedu.domain.lecture.service.LectureService;
+import com.project.nexedu.domain.lecture.Lecture;
+import com.project.nexedu.domain.study.Study;
+import com.project.nexedu.domain.study.dto.StudiesResponseDto;
+import com.project.nexedu.domain.study.service.StudyService;
 import com.project.nexedu.domain.user.User;
 import com.project.nexedu.domain.user.dto.UserResponseDto;
 import com.project.nexedu.domain.user.dto.UserUpdateRequestDto;
@@ -20,6 +23,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static com.project.nexedu.util.MessageService.showMessageAndRedirect;
 
 @Slf4j
@@ -30,6 +36,7 @@ public class SettingViewController {
 
     private final UserService userService;
     private final CheckNicknameUpdateValidator checkNicknameUpdateValidator;
+    private final StudyService studyService;
 
     @InitBinder
     public void validatorBinder(WebDataBinder binder) {
@@ -66,11 +73,18 @@ public class SettingViewController {
         return showMessageAndRedirect(message, model);
     }
 
-//    @GetMapping("/lectures")
-//    public String studyLectures(Model model) {
-//        User user = userService.getCurrentUser();
-//        model.addAttribute("nickname", user.getNickname());
-//
-//        return "setting/study-lectures";
-//    }
+    @GetMapping("/lectures")
+    public String studyLectures(Model model) {
+        User user = userService.getCurrentUser();
+        model.addAttribute("nickname", user.getNickname());
+
+        StudiesResponseDto studiesResponseDto = studyService.findByUserId(user.getId());
+        List<Lecture> lectures = studiesResponseDto.getStudies().stream()
+                .map(Study::getLecture)
+                .toList();
+
+        model.addAttribute("lectures", lectures);
+
+        return "setting/study-lectures";
+    }
 }
