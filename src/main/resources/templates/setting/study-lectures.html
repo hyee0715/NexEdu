@@ -119,6 +119,11 @@
                                     <!-- CONTENTS !-->
                                     <thead>
                                     <tr style="text-align: center">
+                                        <th>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" id="allCheckBox" onclick="allChecked()">
+                                            </label>
+                                        </th>
                                         <th class="col-md-1">번호</th>
                                         <th class="col-md-5">제목</th>
                                         <th class="col-md-2">강사명</th>
@@ -130,6 +135,12 @@
                                     <tbody>
                                     <!-- CONTENTS !-->
                                     <tr th:each="lecture : ${lectures}">
+                                        <td style="text-align: center">
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="chk" class="chk" onclick="chkClicked()"
+                                                       th:value="${lecture.id}">
+                                            </label>
+                                        </td>
                                         <td th:text="${lecture.id}" style="text-align: center"></td>
                                         <td><a th:href="'/lecture/detail/'+${lecture.id}" th:text="${lecture.title}"
                                                style="text-decoration:none; color: inherit;"></a></td>
@@ -142,7 +153,11 @@
                                     </tbody>
                                 </table>
 
-                                <div style="display: inline-block; float: right;"> <!-- 글쓰기 버튼 -->
+                                <div style="display: inline-block; float: right;">
+                                    <a href='javascript:boardDelete();' class="btn btn-outline-danger">삭제</a>
+                                </div>
+
+                                <div style="display: inline-block; float: right;">
                                     <a style="float: right; margin-right: 15px;" class="btn btn-outline-dark"
                                        th:href="@{/}">수강 신청 하기</a>
                                 </div>
@@ -159,6 +174,103 @@
 <div th:replace="fragments/footer :: footer"/>
 
 <script src="/js/app/bootstrap.bundle.min.js"></script>
+
+<script>
+    //체크박스 전체 선택 클릭 이벤트
+    function allChecked(target){
+
+        //전체 체크박스 버튼
+        const checkbox = document.getElementById('allCheckBox');
+
+        //전체 체크박스 버튼 체크 여부
+        const is_checked = checkbox.checked;
+
+        //전체 체크박스 제외한 모든 체크박스
+        if(is_checked){
+            //체크박스 전체 체크
+            chkAllChecked()
+        }
+
+        else{
+            //체크 박스 전체 해제
+            chkAllUnChecked()
+        }
+    }
+
+    //자식 체크 박스 클릭 이벤트
+    function chkClicked(){
+
+        //체크박스 전체 개수
+        const allCount = document.querySelectorAll(".chk").length;
+
+        //체크된 체크박스 전체 개수
+        const query = 'input[name="chk"]:checked'
+        const selectedElements = document.querySelectorAll(query)
+        const selectedElementsCnt = selectedElements.length;
+
+        //체크박스 전체 개수와 체크된 체크박스 전체 개수가 같으면 전체 체크박스 체크
+        if(allCount == selectedElementsCnt){
+            document.getElementById('allCheckBox').checked = true;
+        }
+
+        //같지 않으면 전체 체크박스 해제
+        else{
+            document.getElementById('allCheckBox').checked = false;
+        }
+    }
+
+    //체크박스 전체 체크
+    function chkAllChecked(){
+        document.querySelectorAll(".chk").forEach(function(v, i) {
+            v.checked = true;
+        });
+    }
+
+    //체크박스 전체 체크 해제
+    function chkAllUnChecked(){
+        document.querySelectorAll(".chk").forEach(function(v, i) {
+            v.checked = false;
+        });
+    }
+
+    //수강 신청 목록 삭제
+    function boardDelete(){
+        //체크박스 체크 된 항목
+        const query = 'input[name="chk"]:checked'
+        const selectedElements = document.querySelectorAll(query)
+
+        //체크박스 체크된 항목의 개수
+        const selectedElementsCnt = selectedElements.length;
+
+        if(selectedElementsCnt == 0){
+            alert("수강 취소할 강의를 선택해주세요.");
+            return false;
+        }
+
+        else{
+            if (confirm("선택한 강의를 수강 취소하시겠습니까?")) {
+                const arr = new Array(selectedElementsCnt);
+
+                document.querySelectorAll('input[name="chk"]:checked').forEach(function(v, i) {
+                    arr[i] = v.value;
+                });
+
+                const form = document.createElement('form');
+                form.setAttribute('method', 'post');        //Post 메소드 적용
+                form.setAttribute('action', '/setting/lectures/delete');
+
+                var input1 = document.createElement('input');
+                input1.setAttribute("type", "hidden");
+                input1.setAttribute("name", "boardIds");
+                input1.setAttribute("value", arr);
+                form.appendChild(input1);
+                console.log(form);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+    }
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
         integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
