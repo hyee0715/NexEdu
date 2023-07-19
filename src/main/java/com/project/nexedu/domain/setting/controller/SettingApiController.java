@@ -1,4 +1,4 @@
-package com.project.nexedu.domain.user.controller;
+package com.project.nexedu.domain.setting.controller;
 
 import com.project.nexedu.domain.user.dto.UserResponseDto;
 import com.project.nexedu.domain.user.dto.UserUpdateRequestDto;
