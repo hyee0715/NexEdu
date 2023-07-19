@@ -1,5 +1,7 @@
 package com.project.nexedu.domain.setting.controller;
 
+import com.project.nexedu.domain.board.dto.BoardsResponseDto;
+import com.project.nexedu.domain.board.serivce.BoardService;
 import com.project.nexedu.domain.lecture.Lecture;
 import com.project.nexedu.domain.study.Study;
 import com.project.nexedu.domain.study.dto.StudiesResponseDto;
@@ -36,6 +38,7 @@ public class SettingViewController {
     private final UserService userService;
     private final CheckNicknameUpdateValidator checkNicknameUpdateValidator;
     private final StudyService studyService;
+    private final BoardService boardService;
 
     @InitBinder
     public void validatorBinder(WebDataBinder binder) {
@@ -94,5 +97,25 @@ public class SettingViewController {
                 .forEach(studyService::deleteByLectureId);
 
         return "redirect:/setting/lectures";
+    }
+
+    @GetMapping("/boards")
+    public String getUserBoards(Model model) {
+        User user = userService.getCurrentUser();
+        model.addAttribute("nickname", user.getNickname());
+
+        BoardsResponseDto boardsResponseDto = boardService.findByUserId(user.getId());
+        model.addAttribute("boards", boardsResponseDto);
+
+        return "setting/user-boards";
+    }
+
+    @PostMapping("/boards/delete")
+    public String deleteBoards(@RequestParam List<String> boardIds) {
+        boardIds.stream()
+                .map(Long::valueOf)
+                .forEach(boardService::delete);
+
+        return "redirect:/setting/boards";
     }
 }

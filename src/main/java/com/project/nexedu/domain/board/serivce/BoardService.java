@@ -57,6 +57,13 @@ public class BoardService {
         return new BoardsResponseDto(boards);
     }
 
+    public BoardsResponseDto findByUserId(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("회원이 존재하지 않습니다."));
+        List<Board> boards = boardRepository.findByWriter(user);
+
+        return new BoardsResponseDto(boards);
+    }
+
     @Transactional
     public Long update(Long id, BoardUpdateRequestDto boardUpdateRequestDto) {
         Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
