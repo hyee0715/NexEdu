@@ -23,19 +23,17 @@
                     <div th:each="lecture : ${lectures.getLectures()}">
                         <div class="col">
                             <div class="card">
-<!--                                <img src="..." class="card-img-top" alt="...">-->
-                                <div class="card-body">
+                                <!--                                <img src="..." class="card-img-top" alt="...">-->
+                                <div class="card-body" style="margin-top: 10px; margin-bottom: 10px;">
                                     <h4 class="card-title">
-                                        <a th:href="'/lecture/detail/'+${lecture.id}" th:text="${lecture.title}" style="text-decoration:none; color: inherit;"></a>
+                                        <a th:href="'/lecture/detail/'+${lecture.id}" th:text="${lecture.title}"
+                                           style="text-decoration:none; color: inherit;"></a>
                                     </h4>
                                     <div class="card-text" style="margin-top: 10px;">
-                                        강사 : <a th:text="${lecture.instructor.getNickname()}">instructor</a>
+                                        강사명 : <a th:text="${lecture.instructor.getNickname()}">instructor</a>
                                     </div>
                                     <div class="card-text" style="margin-top: 10px;">
                                         분량 : <a th:text="${lecture.runningTime}">runningTime</a>분
-                                    </div>
-                                    <div class="card-text" style="margin-top: 10px;">
-                                        <a th:text="${lecture.description}">description</a>
                                     </div>
                                 </div>
                             </div>
