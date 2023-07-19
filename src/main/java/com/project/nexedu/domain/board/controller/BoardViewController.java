@@ -4,6 +4,7 @@ import com.project.nexedu.config.PrincipalDetails;
 import com.project.nexedu.domain.board.dto.BoardResponseDto;
 import com.project.nexedu.domain.board.dto.BoardsResponseDto;
 import com.project.nexedu.domain.board.serivce.BoardService;
+import com.project.nexedu.domain.comment.Comment;
 import com.project.nexedu.domain.lecture.dto.LectureResponseDto;
 import com.project.nexedu.domain.lecture.service.LectureService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -46,6 +49,11 @@ public class BoardViewController {
 
         BoardResponseDto boardResponseDto = boardService.findById(id);
         model.addAttribute("board", boardResponseDto);
+
+        List<Comment> comments = boardResponseDto.getComments();
+        if (!comments.isEmpty()) {
+            model.addAttribute("comments", comments);
+        }
 
         return "board/board-detail";
     }
