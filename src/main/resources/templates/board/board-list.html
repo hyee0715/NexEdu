@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+
+<body>
+<div class="container">
+    <main role="main" class="container">
+        <br><br>
+        <div class="p-5 mb-4 bg-light rounded-3">
+            <div class="container-fluid py-5">
+                <h1 class="display-5 fw-bold">질문 게시판</h1>
+                <h3 th:text="${lecture.title}" style="margin-top: 10px;">강의 이름</h3>
+                <br>
+                <p class="col-md-8 fs-4">
+                <div class="starter-template">
+
+                    <table class="table table-bordered">
+                        <!-- CONTENTS !-->
+                        <thead>
+                        <tr style="text-align: center">
+                            <th class="col-md-1">번호</th>
+                            <th class="col-md-4">제목</th>
+                            <th class="col-md-2">작성자</th>
+                            <th class="col-md-2">작성일</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <!-- CONTENTS !-->
+                        <tr th:each="board : ${boards.getBoards()}">
+                            <td th:text="${board.id}" style="text-align: center"></td>
+                            <td><a th:href="'/board/detail/'+${board.id}" th:text="${board.title}"
+                                   style="text-decoration:none; color: inherit;"></a></td>
+                            <td th:text="${board.writer.getNickname()}" style="text-align: center"></td>
+                            <td th:text="${board.createdDate} ? ${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')} : ${board.createdDate}"
+                                style="text-align: center"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- 글쓰기 버튼 -->
+                    <a style="float: right;" class="btn btn-outline-dark"
+                       th:href="'/board/write/' + ${lecture.id}">글쓰기</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</div> <!-- /container -->
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

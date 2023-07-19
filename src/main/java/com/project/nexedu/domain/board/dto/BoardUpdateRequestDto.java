@@ -11,4 +11,5 @@ public class BoardUpdateRequestDto {
 
     private String title;
     private String content;
+    private Long writerId;
 }

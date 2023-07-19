@@ -6,7 +6,6 @@ import com.project.nexedu.domain.board.dto.BoardUpdateRequestDto;
 import com.project.nexedu.domain.board.dto.BoardsResponseDto;
 import com.project.nexedu.domain.board.serivce.BoardService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +16,9 @@ public class BoardApiController {
 
     private final BoardService boardService;
 
-    @PostMapping("/save")
-    public ResponseEntity<BoardResponseDto> save(@RequestBody BoardSaveRequestDto boardSaveRequestDto) {
-        BoardResponseDto boardResponseDto = boardService.save(boardSaveRequestDto);
+    @PostMapping("/save/{lectureId}")
+    public ResponseEntity<BoardResponseDto> save(@PathVariable("lectureId") Long lectureId, @RequestBody BoardSaveRequestDto boardSaveRequestDto) {
+        BoardResponseDto boardResponseDto = boardService.save(lectureId, boardSaveRequestDto);
 
         return ResponseEntity.ok(boardResponseDto);
     }
@@ -31,24 +30,31 @@ public class BoardApiController {
         return ResponseEntity.ok(boardsResponseDto);
     }
 
-    @GetMapping("/detail/{id}")
-    public ResponseEntity<BoardResponseDto> detail(@PathVariable("id") Long id) {
-        BoardResponseDto boardResponseDto = boardService.findById(id);
+    @GetMapping("/list/lecture/{lectureId}")
+    public ResponseEntity<BoardsResponseDto> findByLectureId(@PathVariable("lectureId") Long lectureId) {
+        BoardsResponseDto boardsResponseDto = boardService.findByLectureId(lectureId);
+
+        return ResponseEntity.ok(boardsResponseDto);
+    }
+
+    @GetMapping("/detail/{boardId}")
+    public ResponseEntity<BoardResponseDto> detail(@PathVariable("boardId") Long boardId) {
+        BoardResponseDto boardResponseDto = boardService.findById(boardId);
 
         return ResponseEntity.ok(boardResponseDto);
     }
 
-    @PutMapping("/detail/update/{id}")
-    public ResponseEntity update(@PathVariable Long id, @RequestBody BoardUpdateRequestDto boardUpdateRequestDto) {
-        Long updateId = boardService.update(id, boardUpdateRequestDto);
+    @PutMapping("/detail/update/{boardId}")
+    public ResponseEntity update(@PathVariable("boardId") Long boardId, @RequestBody BoardUpdateRequestDto boardUpdateRequestDto) {
+        Long updateId = boardService.update(boardId, boardUpdateRequestDto);
 
         return ResponseEntity.ok(updateId);
     }
 
-    @DeleteMapping("/detail/delete/{id}")
-    public ResponseEntity delete(@PathVariable Long id) {
-        boardService.delete(id);
+    @DeleteMapping("/detail/delete/{boardId}")
+    public ResponseEntity delete(@PathVariable("boardId") Long boardId) {
+        boardService.delete(boardId);
 
-        return ResponseEntity.ok(id);
+        return ResponseEntity.ok(boardId);
     }
 }

@@ -17,7 +17,7 @@ var main = {
         var isRight = true;
 
         $("#write-validate").find("input[type=text]").each(function(index, item){
-        //띄어쓰기도 빈 값으로 체크함
+            //띄어쓰기도 빈 값으로 체크함
             if ($(this).val().trim() == '') {
                 alert("제목을 입력하세요.")
                 isRight = false;
@@ -30,7 +30,7 @@ var main = {
         }
 
         $("#write-validate").find("textarea").each(function(index, item){
-        //띄어쓰기도 빈 값으로 체크함
+            //띄어쓰기도 빈 값으로 체크함
             if ($(this).val().trim() == '') {
                 alert("내용을 입력하세요.")
                 isRight = false;
@@ -47,20 +47,20 @@ var main = {
 
         var data = {
             title: $('#title').val(),
-            description: $('#description').val(),
-            runningTime: $('#runningTime').val(),
-            instructorId: $('#instructorId').val()
+            content: $('#content').val(),
+            writerId: $('#writerId').val(),
+            lectureId : $('#lectureId').val()
         };
 
         $.ajax({
             type: 'POST',
-            url: '/api/lecture/save',
+            url: '/api/board/save/' + data.lectureId,
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
-            alert('강의가 등록되었습니다.');
-            window.location.href = '/';
+            alert('글이 등록되었습니다.');
+            window.location.href = '/board/list/' + data.lectureId;
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -69,7 +69,7 @@ var main = {
         var isRight = true;
 
         $("#update-validate").find("input[type=text]").each(function(index, item){
-        //띄어쓰기도 빈 값으로 체크함
+            //띄어쓰기도 빈 값으로 체크함
             if ($(this).val().trim() == '') {
                 alert("제목을 입력하세요.")
                 isRight = false;
@@ -82,7 +82,7 @@ var main = {
         }
 
         $("#update-validate").find("textarea").each(function(index, item){
-        //띄어쓰기도 빈 값으로 체크함
+            //띄어쓰기도 빈 값으로 체크함
             if ($(this).val().trim() == '') {
                 alert("내용을 입력하세요.")
                 isRight = false;
@@ -99,37 +99,37 @@ var main = {
 
         var data = {
             title: $('#title').val(),
-            description: $('#description').val(),
-            runningTime: $('#runningTime').val(),
-            instructorId: $('#instructorId').val()
+            writerId: $('#writerId').val(),
+            content: $('#content').val()
         };
 
-        var id = $('#id').val();
+        var id = $('#boardId').val();
 
         $.ajax({
             type: 'PUT',
-            url: '/api/lecture/detail/update/'+id,
+            url: '/api/board/detail/update/' + id,
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
-            alert('강의가 수정되었습니다.');
-            window.location.href = '/';
+            alert('글이 수정되었습니다.');
+            window.location.href = '/board/detail/' + id;
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
     },
     delete : function () {
-        var id = $('#id').val();
+        var boardId = $('#boardId').val();
+        var lectureId = $('#lectureId').val();
 
         $.ajax({
             type: 'DELETE',
-            url: '/api/lecture/detail/delete/'+id,
+            url: '/api/board/detail/delete/' + boardId,
             dataType: 'json',
             contentType:'application/json; charset=utf-8'
         }).done(function() {
-            alert('강의가 삭제되었습니다.');
-            window.location.href = '/';
+            alert('글이 삭제되었습니다.');
+            window.location.href = '/board/list/' + lectureId;
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

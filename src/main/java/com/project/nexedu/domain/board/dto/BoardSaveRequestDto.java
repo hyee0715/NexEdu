@@ -16,6 +16,8 @@ public class BoardSaveRequestDto {
     private User writer;
     private String content;
     private Lecture lecture;
+    private Long writerId;
+    private Long lectureId;
 
     public Board toEntity() {
         return Board.builder()
