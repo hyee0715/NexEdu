@@ -88,12 +88,10 @@ public class SettingViewController {
     }
 
     @PostMapping("/lectures/delete")
-    public String deleteStudies(@RequestParam List<String> boardIds) { //lecture id임
-        for (int i = 0; i < boardIds.size(); i++) {
-            Long id = Long.valueOf(boardIds.get(i));
-           // boardService.delete(id);
-            studyService.deleteByLectureId(id);
-        }
+    public String deleteStudies(@RequestParam List<String> lectureIds) {
+        lectureIds.stream()
+                .map(Long::valueOf)
+                .forEach(studyService::deleteByLectureId);
 
         return "redirect:/setting/lectures";
     }
