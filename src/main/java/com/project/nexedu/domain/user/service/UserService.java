@@ -42,12 +42,6 @@ public class UserService {
         return user.getId();
     }
 
-    public UserResponseDto detail() {
-        User user = getCurrentUser();
-
-        return new UserResponseDto(user.getId(), user.getRealName(), user.getUsername(), user.getPassword(), user.getNickname(), user.getEmail(), user.getRole());
-    }
-
     @Transactional
     public void delete() {
         User user = getCurrentUser();
@@ -59,6 +53,12 @@ public class UserService {
     private String encodePassword(String password) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder.encode(password);
+    }
+
+    public UserResponseDto getCurrentUserResponseDto() {
+        User user = getCurrentUser();
+
+        return new UserResponseDto(user.getId(), user.getRealName(), user.getUsername(), user.getPassword(), user.getNickname(), user.getEmail(), user.getRole());
     }
 
     public User getCurrentUser() {

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @AllArgsConstructor
 @Controller
-public class UserController {
+public class UserViewController {
 
     private final UserService userService;
     private final CheckUsernameValidator checkUsernameValidator;

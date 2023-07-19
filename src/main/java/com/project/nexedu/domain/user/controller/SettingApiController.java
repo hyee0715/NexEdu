@@ -29,7 +29,7 @@ public class SettingApiController {
 
     @GetMapping("/user/detail")
     public ResponseEntity detail() {
-        UserResponseDto userResponseDto = userService.detail();
+        UserResponseDto userResponseDto = userService.getCurrentUserResponseDto();
 
         return ResponseEntity.ok(userResponseDto);
     }
