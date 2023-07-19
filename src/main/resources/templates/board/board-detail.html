@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/header :: header">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+
+<body>
+<div class="container">
+    <main role="main" class="container">
+        <br><br>
+        <div class="p-5 mb-4 bg-light rounded-3">
+            <div class="container-fluid py-5">
+
+                <div class="border-bottom">
+                    <h2 class="mb-3" th:text="${board.title}" style="font-size: 40px;">제목</h2>
+                    <p class="fst-italic" style="margin-top:30px; font-size: 13px;">
+                        <a th:text="${board.writer.getNickname()}">작성자</a>
+                        / 작성일 <a
+                            th:text="${board.createdDate} ? ${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')} : ${boardDetailResponseDto.createdDate}">작성일</a>
+                        / 수정일 <a
+                            th:text="${board.modifiedDate} ? ${#temporals.format(board.modifiedDate,'yyyy-MM-dd HH:mm')} : ${boardDetailResponseDto.modifiedDate}">수정일</a>
+                    </p>
+                </div>
+
+                <p th:text="${board.content}" style="font-size: 20px; margin-top: 20px;">본문</p>
+
+                <p class="border-bottom" style="margin-top: 100px;">
+                <div class="starter-template">
+                    <!-- 수정/삭제 -->
+                    <div th:if="${board.writer.getNickname() == nickname && board.writer.getId() == userId}"
+                         style="display: inline-block">
+                        <a th:href="@{'/board/detail/update/' + ${board.id}}">
+                            <button class="btn btn-outline-primary">수정</button>
+                        </a>
+                    </div>
+                    <div th:if="${board.writer.getNickname() == nickname && board.writer.getId() == userId}"
+                         style="display: inline-block">
+                        <form>
+                            <input type="hidden" name="boardId" id="boardId" th:value="${board.id}"/>
+                            <input type="hidden" name="lectureId" id="lectureId" th:value="${board.getLecture().id}"/>
+                            <button type="button" class="btn btn-outline-danger" id="btn-delete">삭제</button>
+                        </form>
+                    </div>
+                    <div class="btn_wrap text-center">
+                        <a th:href="@{'/board/list/' + ${board.getLecture().id}}" class="btn btn-outline-secondary">목록으로</a>
+                    </div>
+                </div>
+                </p>
+            </div>
+        </div>
+    </main>
+</div> <!-- /container -->
+<div th:replace="fragments/footer :: footer"/>
+<script src="/js/app/board.js"></script>
+
+</body>
+</html>
