@@ -26,9 +26,15 @@ public class StudyService {
 
     @Transactional
     public StudyResponseDto save(StudyRequestDto studyRequestDto) {
-        Optional<Study> studyWrapper = studyRepository.findByLectureAndUser(studyRequestDto.getLecture(), studyRequestDto.getUser());
+        Lecture lecture = lectureRepository.findById(studyRequestDto.getLectureId()).orElseThrow(() -> new IllegalArgumentException("강의가 존재하지 않습니다."));
+        User user = userRepository.findById(studyRequestDto.getUserId()).orElseThrow(() -> new IllegalArgumentException("회원이 존재하지 않습니다."));
 
-        return studyWrapper.map(existingStudy ->
+        studyRequestDto.setLecture(lecture);
+        studyRequestDto.setUser(user);
+
+        Optional<Study> studyWrapper = studyRepository.findByLectureAndUser(lecture, user);
+
+        return studyWrapper.map(alreadyExistingStudy ->
                         new StudyResponseDto(null, null, null))
                 .orElseGet(() -> {
                     Study study = studyRequestDto.toEntity();
@@ -55,6 +61,16 @@ public class StudyService {
         List<Study> studies = studyRepository.findByLecture(lecture);
 
         return new StudiesResponseDto(studies);
+    }
+
+    public StudyResponseDto findByLectureIdAndUserId(Long lectureId, Long userId) {
+        Lecture lecture = lectureRepository.findById(lectureId).orElseThrow(() -> new IllegalArgumentException("강의가 존재하지 않습니다."));
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("회원이 존재하지 않습니다."));
+        Optional<Study> studyWrapper = studyRepository.findByLectureAndUser(lecture, user);
+
+        return studyWrapper.map(alreadyExistingStudy ->
+                        new StudyResponseDto(alreadyExistingStudy.getId(), alreadyExistingStudy.getLecture(), alreadyExistingStudy.getUser()))
+                .orElseGet(() -> new StudyResponseDto(null, null, null));
     }
 
     @Transactional

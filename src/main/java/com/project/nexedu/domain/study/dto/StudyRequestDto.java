@@ -15,11 +15,15 @@ public class StudyRequestDto {
 
     private Lecture lecture;
     private User user;
+    private Long lectureId;
+    private Long userId;
 
     @Builder
-    public StudyRequestDto(Lecture lecture, User user) {
+    public StudyRequestDto(Lecture lecture, User user, Long lectureId, Long userId) {
         this.lecture = lecture;
         this.user = user;
+        this.lectureId = lectureId;
+        this.userId = userId;
     }
 
     public Study toEntity() {
