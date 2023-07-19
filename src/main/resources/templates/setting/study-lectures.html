@@ -154,7 +154,7 @@
                                 </table>
 
                                 <div style="display: inline-block; float: right;">
-                                    <a href='javascript:boardDelete();' class="btn btn-outline-danger">삭제</a>
+                                    <a href='javascript:lectureDelete();' class="btn btn-outline-danger">삭제</a>
                                 </div>
 
                                 <div style="display: inline-block; float: right;">
@@ -234,7 +234,7 @@
     }
 
     //수강 신청 목록 삭제
-    function boardDelete(){
+    function lectureDelete(){
         //체크박스 체크 된 항목
         const query = 'input[name="chk"]:checked'
         const selectedElements = document.querySelectorAll(query)
@@ -261,7 +261,7 @@
 
                 var input1 = document.createElement('input');
                 input1.setAttribute("type", "hidden");
-                input1.setAttribute("name", "boardIds");
+                input1.setAttribute("name", "lectureIds");
                 input1.setAttribute("value", arr);
                 form.appendChild(input1);
                 console.log(form);
