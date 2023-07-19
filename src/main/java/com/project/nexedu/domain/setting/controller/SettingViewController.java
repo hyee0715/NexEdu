@@ -24,7 +24,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.project.nexedu.util.MessageService.showMessageAndRedirect;
 
@@ -86,5 +85,16 @@ public class SettingViewController {
         model.addAttribute("lectures", lectures);
 
         return "setting/study-lectures";
+    }
+
+    @PostMapping("/lectures/delete")
+    public String deleteStudies(@RequestParam List<String> boardIds) { //lecture id임
+        for (int i = 0; i < boardIds.size(); i++) {
+            Long id = Long.valueOf(boardIds.get(i));
+           // boardService.delete(id);
+            studyService.deleteByLectureId(id);
+        }
+
+        return "redirect:/setting/lectures";
     }
 }
