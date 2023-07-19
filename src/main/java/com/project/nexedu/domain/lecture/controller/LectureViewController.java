@@ -4,6 +4,8 @@ import com.project.nexedu.config.PrincipalDetails;
 import com.project.nexedu.domain.lecture.dto.LectureResponseDto;
 import com.project.nexedu.domain.lecture.dto.LecturesResponseDto;
 import com.project.nexedu.domain.lecture.service.LectureService;
+import com.project.nexedu.domain.study.dto.StudyResponseDto;
+import com.project.nexedu.domain.study.service.StudyService;
 import com.project.nexedu.domain.user.User;
 import com.project.nexedu.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ public class LectureViewController {
 
     private final LectureService lectureService;
     private final UserService userService;
+    private final StudyService studyService;
 
     @GetMapping("/")
     public String index(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
@@ -39,10 +42,17 @@ public class LectureViewController {
         if (principalDetails != null) {
             model.addAttribute("nickname", principalDetails.getUser().getNickname());
             model.addAttribute("userId", principalDetails.getUser().getId());
+
+            StudyResponseDto studyResponseDto = studyService.findByLectureIdAndUserId(id, principalDetails.getUser().getId());
+
+            if (studyResponseDto.getId() == null && studyResponseDto.getLecture() == null && studyResponseDto.getUser() == null) {
+                model.addAttribute("requested", false);
+            }
         }
 
         LectureResponseDto lectureResponseDto = lectureService.findById(id);
         model.addAttribute("lecture", lectureResponseDto);
+
 
         return "lecture/lecture-detail";
     }

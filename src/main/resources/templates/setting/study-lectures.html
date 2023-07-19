@@ -50,7 +50,7 @@
         <div class="nav-item text-nowrap">
             <a class="nav-link px-3 d-flex align-items-center text-white text-decoration-none"
                aria-expanded="false">
-                <strong th:text="${user.getNickname()}">닉네임</strong>
+                <strong th:text="${nickname}">닉네임</strong>
             </a>
         </div>
     </div>
@@ -105,72 +105,10 @@
             </div>
         </nav>
 
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div class="justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-                <div class="d-flex flex-column flex-shrink-0 p-3">
-                    <div class="input-form">
-                        <br><br>
-                        <h4 class="mb-3">내 정보 수정</h4>
-                        <br>
-                        <form th:action="@{/setting/user/update}" method="post" th:object="${userUpdateRequestDto}" novalidate>
-                            <div style="margin-bottom: 15px;">
-                                <input type="hidden" class="form-control" th:field="*{id}" th:readonly="readonly">
 
-                                <div class="mb-3">
-                                    <label for="realName">이름</label>
-                                    <input type="text" th:field="*{realName}" th:errorclass="field-error-form" class="form-control"
-                                           id="realName" name="realName" required>
-                                    <div class="field-error" th:errors="*{realName}">
-                                        이름 오류
-                                    </div>
-                                </div>
 
-                                <div class="mb-3">
-                                    <label for="username">아이디</label>
-                                    <input type="text" class="form-control" id="username" th:field="${user.username}"
-                                           th:readonly="readonly" style=" background-color: #E6E6E6;"
-                                           onfocus="this.blur();"
-                                           tabindex="-1">
-                                </div>
 
-                                <div class="mb-3">
-                                    <label for="nickname">닉네임</label>
-                                    <input type="text" class="form-control" id="nickname" th:field="*{nickname}"
-                                           th:errorclass="field-error-form" name="nickname" required>
-                                    <div class="field-error" th:errors="*{nickname}">
-                                        닉네임 오류
-                                    </div>
-                                </div>
 
-                                <div class="mb-3">
-                                    <label for="password">비밀번호</label>
-                                    <input type="password" class="form-control" id="password" th:field="*{password}"
-                                           th:errorclass="field-error-form" name="password" required>
-                                    <div class="field-error" th:errors="*{password}">
-                                        비밀번호 오류
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="email">이메일</label>
-                                    <input type="email" class="form-control" id="email" th:field="*{email}"
-                                           th:errorclass="field-error-form" name="nickname" required>
-                                    <div class="field-error" th:errors="*{email}">
-                                        이메일 오류
-                                    </div>
-                                </div>
-
-                                <hr class="mb-4" style="margin-top: 30px;">
-                                <button class="btn btn-primary btn-lg btn-block" type="submit"
-                                        style="margin-top: 10px;">
-                                    저장하기
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </main>
     </div>
 </div>
 

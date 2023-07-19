@@ -1,5 +1,6 @@
 package com.project.nexedu.domain.user.controller;
 
+import com.project.nexedu.domain.lecture.service.LectureService;
 import com.project.nexedu.domain.user.User;
 import com.project.nexedu.domain.user.dto.UserResponseDto;
 import com.project.nexedu.domain.user.dto.UserUpdateRequestDto;
@@ -63,7 +64,13 @@ public class SettingViewController {
 
         MessageDto message = new MessageDto("회원 정보 변경이 완료되었습니다.", "/setting/user/detail", RequestMethod.GET, null);
         return showMessageAndRedirect(message, model);
-
-       // return "redirect:/setting/user/detail";
     }
+
+//    @GetMapping("/lectures")
+//    public String studyLectures(Model model) {
+//        User user = userService.getCurrentUser();
+//        model.addAttribute("nickname", user.getNickname());
+//
+//        return "setting/study-lectures";
+//    }
 }
