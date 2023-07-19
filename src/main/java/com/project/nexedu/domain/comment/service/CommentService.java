@@ -1,10 +1,13 @@
 package com.project.nexedu.domain.comment.service;
 
+import com.project.nexedu.domain.board.Board;
+import com.project.nexedu.domain.board.BoardRepository;
 import com.project.nexedu.domain.comment.Comment;
 import com.project.nexedu.domain.comment.CommentRepository;
 import com.project.nexedu.domain.comment.dto.CommentResponseDto;
 import com.project.nexedu.domain.comment.dto.CommentSaveRequestDto;
 import com.project.nexedu.domain.comment.dto.CommentUpdateRequestDto;
+import com.project.nexedu.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,18 +17,24 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommentService {
 
     private final CommentRepository commentRepository;
+    private final BoardRepository boardRepository;
 
     @Transactional
-    public CommentResponseDto save(CommentSaveRequestDto commentSaveRequestDto) {
+    public CommentResponseDto save(Long boardId, CommentSaveRequestDto commentSaveRequestDto, User writer) {
+        Board board = boardRepository.findById(boardId).orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
+
+        commentSaveRequestDto.setBoard(board);
+        commentSaveRequestDto.setWriter(writer);
+
         Comment comment = commentSaveRequestDto.toEntity();
         Comment savedComment = commentRepository.save(comment);
 
-        return new CommentResponseDto(savedComment.getId(), savedComment.getContent(), savedComment.getBoard(), savedComment.getWriter());
+        return new CommentResponseDto(savedComment.getId(), savedComment.getContent(), savedComment.getBoard(), savedComment.getWriter(), savedComment.getCreatedDate(), savedComment.getModifiedDate());
     }
 
     @Transactional
     public Long update(Long id, CommentUpdateRequestDto commentUpdateRequestDto) {
-        Comment comment = commentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다. " + id));
+        Comment comment = commentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다."));
 
         comment.update(commentUpdateRequestDto.getContent());
         return id;
@@ -33,7 +42,7 @@ public class CommentService {
 
     @Transactional
     public Long delete(Long id) {
-        Comment comment = commentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다. " + id));
+        Comment comment = commentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다."));
 
         commentRepository.delete(comment);
         return id;

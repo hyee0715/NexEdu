@@ -1,12 +1,15 @@
 package com.project.nexedu.domain.board;
 
 import com.project.nexedu.domain.Time;
+import com.project.nexedu.domain.comment.Comment;
 import com.project.nexedu.domain.lecture.Lecture;
 import com.project.nexedu.domain.user.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -30,6 +33,10 @@ public class Board extends Time {
     @ManyToOne
     @JoinColumn(name = "lecture_id")
     private Lecture lecture;
+
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OrderBy("id asc")
+    private List<Comment> comments;
 
     @Builder
     public Board(Long id, String title, User writer, String content, Lecture lecture) {

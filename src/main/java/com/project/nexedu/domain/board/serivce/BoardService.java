@@ -35,7 +35,7 @@ public class BoardService {
         Board board = boardSaveRequestDto.toEntity();
         Board savedBoard = boardRepository.save(board);
 
-        return new BoardResponseDto(savedBoard.getId(), savedBoard.getTitle(), savedBoard.getWriter(), savedBoard.getContent(), savedBoard.getLecture(), savedBoard.getCreatedDate(), savedBoard.getModifiedDate());
+        return new BoardResponseDto(savedBoard.getId(), savedBoard.getTitle(), savedBoard.getWriter(), savedBoard.getContent(), savedBoard.getLecture(), savedBoard.getCreatedDate(), savedBoard.getModifiedDate(), savedBoard.getComments());
     }
 
     public BoardsResponseDto findAll() {
@@ -45,9 +45,9 @@ public class BoardService {
     }
 
     public BoardResponseDto findById(Long id) {
-        Board board = boardRepository.findById(id).orElseThrow(RuntimeException::new);
+        Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
 
-        return new BoardResponseDto(board.getId(), board.getTitle(), board.getWriter(), board.getContent(), board.getLecture(), board.getCreatedDate(), board.getModifiedDate());
+        return new BoardResponseDto(board.getId(), board.getTitle(), board.getWriter(), board.getContent(), board.getLecture(), board.getCreatedDate(), board.getModifiedDate(), board.getComments());
     }
 
     public BoardsResponseDto findByLectureId(Long lectureId) {
@@ -59,7 +59,7 @@ public class BoardService {
 
     @Transactional
     public Long update(Long id, BoardUpdateRequestDto boardUpdateRequestDto) {
-        Board board = boardRepository.findById(id).orElseThrow(RuntimeException::new);
+        Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
 
         board.update(boardUpdateRequestDto.getTitle(), boardUpdateRequestDto.getContent());
         return id;
@@ -67,7 +67,7 @@ public class BoardService {
 
     @Transactional
     public Long delete(Long id) {
-        Board board = boardRepository.findById(id).orElseThrow(RuntimeException::new);
+        Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
 
         boardRepository.delete(board);
         return id;
