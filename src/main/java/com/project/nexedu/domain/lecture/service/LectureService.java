@@ -1,5 +1,6 @@
 package com.project.nexedu.domain.lecture.service;
 
+import com.project.nexedu.domain.board.BoardRepository;
 import com.project.nexedu.domain.lecture.Lecture;
 import com.project.nexedu.domain.lecture.LectureRepository;
 import com.project.nexedu.domain.lecture.dto.LectureResponseDto;
@@ -22,6 +23,7 @@ public class LectureService {
     private final LectureRepository lectureRepository;
     private final StudyRepository studyRepository;
     private final UserRepository userRepository;
+    private final BoardRepository boardRepository;
 
     @Transactional
     public LectureResponseDto save(LectureSaveRequestDto lectureSaveRequestDto) {
@@ -46,6 +48,13 @@ public class LectureService {
         return new LectureResponseDto(lecture.getId(), lecture.getTitle(), lecture.getInstructor(), lecture.getDescription(), lecture.getRunningTime(), lecture.getCreatedDate(), lecture.getModifiedDate());
     }
 
+    public LecturesResponseDto findByInstructorId(Long instructorId) {
+        User instructor = userRepository.findById(instructorId).orElseThrow(() -> new IllegalArgumentException("회원이 존재하지 않습니다."));
+        List<Lecture> lectures = lectureRepository.findByInstructor(instructor);
+
+        return new LecturesResponseDto(lectures);
+    }
+
     @Transactional
     public Long update(Long id, LectureUpdateRequestDto lectureUpdateRequestDto) {
         Lecture lecture = lectureRepository.findById(id).orElseThrow(RuntimeException::new);
@@ -59,7 +68,9 @@ public class LectureService {
         Lecture lecture = lectureRepository.findById(id).orElseThrow(RuntimeException::new);
 
         studyRepository.deleteByLecture(lecture);
+        boardRepository.deleteByLecture(lecture);
         lectureRepository.delete(lecture);
+
         return id;
     }
 }

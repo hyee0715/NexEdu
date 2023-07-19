@@ -10,4 +10,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     List<Board> findByLecture(Lecture lecture);
     List<Board> findByWriter(User writer);
+
+    void deleteByLecture(Lecture lecture);
 }

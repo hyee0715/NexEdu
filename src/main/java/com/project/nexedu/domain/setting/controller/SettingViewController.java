@@ -3,6 +3,8 @@ package com.project.nexedu.domain.setting.controller;
 import com.project.nexedu.domain.board.dto.BoardsResponseDto;
 import com.project.nexedu.domain.board.serivce.BoardService;
 import com.project.nexedu.domain.lecture.Lecture;
+import com.project.nexedu.domain.lecture.dto.LecturesResponseDto;
+import com.project.nexedu.domain.lecture.service.LectureService;
 import com.project.nexedu.domain.study.Study;
 import com.project.nexedu.domain.study.dto.StudiesResponseDto;
 import com.project.nexedu.domain.study.service.StudyService;
@@ -39,6 +41,7 @@ public class SettingViewController {
     private final CheckNicknameUpdateValidator checkNicknameUpdateValidator;
     private final StudyService studyService;
     private final BoardService boardService;
+    private final LectureService lectureService;
 
     @InitBinder
     public void validatorBinder(WebDataBinder binder) {
@@ -117,5 +120,25 @@ public class SettingViewController {
                 .forEach(boardService::delete);
 
         return "redirect:/setting/boards";
+    }
+
+    @GetMapping("/uploadLectures")
+    public String getUploadLectures(Model model) {
+        User user = userService.getCurrentUser();
+        model.addAttribute("nickname", user.getNickname());
+
+        LecturesResponseDto lecturesResponseDto = lectureService.findByInstructorId(user.getId());
+        model.addAttribute("lectures", lecturesResponseDto);
+
+        return "setting/upload-lectures";
+    }
+
+    @PostMapping("/uploadLectures/delete")
+    public String deleteUploadLectures(@RequestParam List<String> lectureIds) {
+        lectureIds.stream()
+                .map(Long::valueOf)
+                .forEach(lectureService::delete);
+
+        return "redirect:/setting/uploadLectures";
     }
 }

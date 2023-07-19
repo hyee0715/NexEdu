@@ -111,7 +111,7 @@
                     <div class="container">
                         <main role="main" class="container">
                             <br>
-                            <h4 class="mb-3">수강 신청 목록</h4>
+                            <h4 class="mb-3">등록한 강의 목록</h4>
                             <br>
 
                             <div class="starter-template">
@@ -134,7 +134,7 @@
 
                                     <tbody>
                                     <!-- CONTENTS !-->
-                                    <tr th:each="lecture : ${lectures}">
+                                    <tr th:each="lecture : ${lectures.getLectures()}">
                                         <td style="text-align: center">
                                             <label class="checkbox-inline">
                                                 <input type="checkbox" name="chk" class="chk" onclick="chkClicked()"
@@ -154,7 +154,7 @@
                                 </table>
 
                                 <div style="display: inline-block; float: right;">
-                                    <a href='javascript:lectureDelete();' class="btn btn-outline-danger">수강 취소</a>
+                                    <a href='javascript:lectureDelete();' class="btn btn-outline-danger">삭제하기</a>
                                 </div>
 
                                 <div style="display: inline-block; float: right;">
@@ -243,12 +243,12 @@
         const selectedElementsCnt = selectedElements.length;
 
         if(selectedElementsCnt == 0){
-            alert("수강 취소할 강의를 선택해주세요.");
+            alert("삭제할 강의를 선택해주세요.");
             return false;
         }
 
         else{
-            if (confirm("선택한 강의를 수강 취소하시겠습니까?")) {
+            if (confirm("선택한 강의를 삭제하시겠습니까?")) {
                 const arr = new Array(selectedElementsCnt);
 
                 document.querySelectorAll('input[name="chk"]:checked').forEach(function(v, i) {
@@ -257,7 +257,7 @@
 
                 const form = document.createElement('form');
                 form.setAttribute('method', 'post');        //Post 메소드 적용
-                form.setAttribute('action', '/setting/lectures/delete');
+                form.setAttribute('action', '/setting/uploadLectures/delete');
 
                 var input1 = document.createElement('input');
                 input1.setAttribute("type", "hidden");
