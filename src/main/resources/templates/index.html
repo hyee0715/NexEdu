@@ -8,10 +8,12 @@
 <div class="container">
     <main role="main" class="container">
         <br><br>
-        <a class="btn btn-outline-dark"
-           th:href="@{/lecture/write}">강의 등록</a>
-
         <div class="p-5 mb-4 bg-light rounded-3">
+            <div style="text-align: center; margin-left: 1055px;">
+                <a class="btn btn-outline-dark"
+                   th:href="@{/lecture/write}">강의 등록</a>
+            </div>
+
             <div class="container-fluid py-5">
                 <div class="row row-cols-1 row-cols-md-3 g-4">
                     <div th:each="lecture : ${lectures.getLectures()}">
