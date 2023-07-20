@@ -10,6 +10,8 @@
         <br><br>
         <div class="p-5 mb-4 bg-light rounded-3">
             <div class="container-fluid py-5">
+                <h5 th:text="${lectureTitle}" style="margin-top: 10px; margin-bottom: 25px; color: gray;">강의 이름</h5>
+
                 <h1 class="display-5 fw-bold">게시글 등록</h1>
                 <br>
                 <p class="col-md-8 fs-4">
@@ -17,6 +19,7 @@
                     <form id="update-validate">
                         <input type="hidden" name="writerId" id="writerId" th:value="${userId}"/>
                         <input type="hidden" name="boardId" id="boardId" th:value="${board.id}"/>
+                        <input type="hidden" name="lectureId" id="lectureId" th:value="${lectureId}"/>
 
                         <div class="form-group">
                             <label style="float: left" for="title" class="col-sm-2 control-label">제목</label>

@@ -10,6 +10,7 @@
         <br><br>
         <div class="p-5 mb-4 bg-light rounded-3">
             <div class="container-fluid py-5">
+                <h5 th:text="${lectureTitle}" style="margin-top: 10px; margin-bottom: 25px; color: gray;">강의 이름</h5>
 
                 <div class="border-bottom">
                     <h2 class="mb-3" th:text="${board.title}" style="font-size: 40px;">제목</h2>
@@ -29,7 +30,7 @@
                     <!-- 수정/삭제 -->
                     <div th:if="${board.writer.getNickname() == nickname && board.writer.getId() == userId}"
                          style="display: inline-block">
-                        <a th:href="@{'/board/detail/update/' + ${board.id}}">
+                        <a th:href="@{'/board/list/' + ${lectureId} + '/update/' + ${board.id}}">
                             <button class="btn btn-outline-primary">수정</button>
                         </a>
                     </div>

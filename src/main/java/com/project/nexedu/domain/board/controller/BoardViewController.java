@@ -40,14 +40,18 @@ public class BoardViewController {
         return "board/board-list";
     }
 
-    @GetMapping("/detail/{id}")
-    public String detail(@PathVariable("id") Long id, @AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
+    @GetMapping("/list/{lectureId}/detail/{boardId}")
+    public String detail(@PathVariable("lectureId") Long lectureId, @PathVariable("boardId") Long boardId, @AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
         if (principalDetails != null) {
             model.addAttribute("nickname", principalDetails.getUser().getNickname());
             model.addAttribute("userId", principalDetails.getUser().getId());
         }
 
-        BoardResponseDto boardResponseDto = boardService.findById(id);
+        LectureResponseDto lectureResponseDto = lectureService.findById(lectureId);
+        model.addAttribute("lectureTitle", lectureResponseDto.getTitle());
+        model.addAttribute("lectureId", lectureId);
+
+        BoardResponseDto boardResponseDto = boardService.findById(boardId);
         model.addAttribute("board", boardResponseDto);
 
         List<Comment> comments = boardResponseDto.getComments();
@@ -67,11 +71,14 @@ public class BoardViewController {
 
         model.addAttribute("lectureId", lectureId);
 
+        LectureResponseDto lectureResponseDto = lectureService.findById(lectureId);
+        model.addAttribute("lectureTitle", lectureResponseDto.getTitle());
+
         return "board/board-write";
     }
 
-    @GetMapping("/detail/update/{boardId}")
-    public String update(@PathVariable("boardId") Long boardId, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    @GetMapping("/list/{lectureId}/update/{boardId}")
+    public String update(@PathVariable("lectureId") Long lectureId, @PathVariable("boardId") Long boardId, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         if (principalDetails != null) {
             model.addAttribute("nickname", principalDetails.getUser().getNickname());
             model.addAttribute("userId", principalDetails.getUser().getId());
@@ -79,6 +86,10 @@ public class BoardViewController {
 
         BoardResponseDto boardResponseDto = boardService.findById(boardId);
         model.addAttribute("board", boardResponseDto);
+
+        LectureResponseDto lectureResponseDto = lectureService.findById(lectureId);
+        model.addAttribute("lectureTitle", lectureResponseDto.getTitle());
+        model.addAttribute("lectureId", lectureResponseDto.getId());
 
         return "board/board-update";
     }

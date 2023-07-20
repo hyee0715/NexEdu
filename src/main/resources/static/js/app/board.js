@@ -103,17 +103,18 @@ var main = {
             content: $('#content').val()
         };
 
-        var id = $('#boardId').val();
+        var boardId = $('#boardId').val();
+        var lectureId = $('#lectureId').val();
 
         $.ajax({
             type: 'PUT',
-            url: '/api/board/detail/update/' + id,
+            url: '/api/board/detail/update/' + boardId,
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
             alert('글이 수정되었습니다.');
-            window.location.href = '/board/detail/' + id;
+            window.location.href = '/board/list/' + lectureId + '/detail/' + boardId;
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
