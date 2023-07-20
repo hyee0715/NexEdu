@@ -1,9 +1,9 @@
 package com.project.nexedu.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.nexedu.config.handler.JsonUsernamePasswordAuthenticationFilter;
-import com.project.nexedu.config.handler.JwtFailureHandler;
-import com.project.nexedu.config.handler.JwtSuccessHandler;
+import com.project.nexedu.jwt.JsonUsernamePasswordAuthenticationFilter;
+import com.project.nexedu.jwt.JwtFailureHandler;
+import com.project.nexedu.jwt.JwtSuccessHandler;
 import com.project.nexedu.domain.user.Role;
 import com.project.nexedu.domain.user.UserRepository;
 import com.project.nexedu.jwt.JwtAuthenticationProcessingFilter;
@@ -55,7 +55,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> request
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
                         .requestMatchers( "/lecture/write", "/board/write/**").hasRole(Role.USER.name())
-                        .requestMatchers("/**", "/status", "/image/**",  "/api/**", "/user/login", "/user/signUp",  "/board/detail").permitAll()
+                        .requestMatchers("/**","/image/**",  "/api/**", "/user/login", "/user/signUp",  "/board/detail").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login

@@ -1,4 +1,4 @@
-package com.project.nexedu.config.handler;
+package com.project.nexedu.jwt;
 
 import com.project.nexedu.domain.user.UserRepository;
 import com.project.nexedu.jwt.service.JwtService;
