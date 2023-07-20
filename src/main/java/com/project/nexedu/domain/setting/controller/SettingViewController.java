@@ -52,7 +52,7 @@ public class SettingViewController {
     }
 
     @GetMapping("/user/detail")
-    public String userDetail(Model model) {
+    public String getUserDetail(Model model) {
         User user = userService.getCurrentUser();
         UserUpdateRequestDto userUpdateRequestDto = new UserUpdateRequestDto(user.getId(), user.getRealName(), user.getNickname(), user.getPassword(), user.getEmail());
 
@@ -63,7 +63,7 @@ public class SettingViewController {
     }
 
     @PostMapping("/user/update")
-    public String userUpdate(@Validated({RealNameValidationSequence.class, NicknameValidationSequence.class,
+    public String updateUser(@Validated({RealNameValidationSequence.class, NicknameValidationSequence.class,
             PasswordValidationSequence.class, EmailValidationSequence.class}) @ModelAttribute UserUpdateRequestDto userUpdateRequestDto, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
@@ -82,7 +82,7 @@ public class SettingViewController {
     }
 
     @GetMapping("/lectures")
-    public String studyLectures(Model model) {
+    public String getStudyLectures(Model model) {
         User user = userService.getCurrentUser();
         model.addAttribute("nickname", user.getNickname());
 

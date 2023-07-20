@@ -43,7 +43,7 @@ public class LectureService {
     }
 
     public LectureResponseDto findById(Long id) {
-        Lecture lecture = lectureRepository.findById(id).orElseThrow(RuntimeException::new);
+        Lecture lecture = lectureRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("강의가 존재하지 않습니다."));
 
         return new LectureResponseDto(lecture.getId(), lecture.getTitle(), lecture.getInstructor(), lecture.getDescription(), lecture.getRunningTime(), lecture.getCreatedDate(), lecture.getModifiedDate());
     }
@@ -57,7 +57,7 @@ public class LectureService {
 
     @Transactional
     public Long update(Long id, LectureUpdateRequestDto lectureUpdateRequestDto) {
-        Lecture lecture = lectureRepository.findById(id).orElseThrow(RuntimeException::new);
+        Lecture lecture = lectureRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("강의가 존재하지 않습니다."));
 
         lecture.update(lectureUpdateRequestDto.getTitle(), lectureUpdateRequestDto.getDescription(), lectureUpdateRequestDto.getRunningTime());
         return id;
@@ -65,7 +65,7 @@ public class LectureService {
 
     @Transactional
     public Long delete(Long id) {
-        Lecture lecture = lectureRepository.findById(id).orElseThrow(RuntimeException::new);
+        Lecture lecture = lectureRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("강의가 존재하지 않습니다."));
 
         studyRepository.deleteByLecture(lecture);
         boardRepository.deleteByLecture(lecture);
