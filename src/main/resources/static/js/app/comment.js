@@ -27,7 +27,7 @@ var main = {
         } else {
             $.ajax({
                 type: 'POST',
-                url: '/api/boards/detail/' + data.boardId + '/comment',
+                url: '/api/boards/detail/' + data.boardId,
                 dataType: 'text',
                 contentType:'application/json; charset=utf-8',
                 data: JSON.stringify(data)
@@ -55,7 +55,7 @@ var main = {
         if (con_check === true) {
             $.ajax({
                 type: 'PUT',
-                url: '/api/boards/detail/' + data.boardId + '/comment/' + data.id,
+                url: '/api/boards/detail/' + data.boardId + '/comments/' + data.id,
                 dataType: 'JSON',
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(data)
@@ -71,7 +71,7 @@ var main = {
         if (con_check === true) {
             $.ajax( {
                 type: 'DELETE',
-                url: '/api/boards/detail/' + boardId + '/comment/' + commentId,
+                url: '/api/boards/detail/' + boardId + '/comments/' + commentId,
                 dataType: 'JSON',
             }).done(function () {
                 alert('댓글이 삭제되었습니다.');

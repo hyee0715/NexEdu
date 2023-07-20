@@ -26,7 +26,7 @@ public class UserApiController {
         binder.addValidators(checkNicknameValidator);
     }
 
-    @PostMapping("/signUp")
+    @PostMapping("/sign-up")
     public ResponseEntity<String> signUp(
             @Validated({RealNameValidationSequence.class, UsernameValidationSequence.class, NicknameValidationSequence.class,
                     PasswordValidationSequence.class, EmailValidationSequence.class}) @RequestBody UserSignUpRequestDto dto) {

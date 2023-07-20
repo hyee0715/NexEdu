@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/study")
+@RequestMapping("/api/studies")
 public class StudyApiController {
 
     private final StudyService studyService;
 
-    @PostMapping("/save")
+    @PostMapping
     public ResponseEntity save(@RequestBody StudyRequestDto studyRequestDto) {
         StudyResponseDto studyResponseDto = studyService.save(studyRequestDto);
 
@@ -35,42 +35,42 @@ public class StudyApiController {
         return ResponseEntity.ok(studiesResponseDto);
     }
 
-    @GetMapping("/list/user/{userId}")
+    @GetMapping("/list/users/{userId}")
     public ResponseEntity<StudiesResponseDto> findByUserId(@PathVariable Long userId) {
         StudiesResponseDto studiesResponseDto = studyService.findByUserId(userId);
 
         return ResponseEntity.ok(studiesResponseDto);
     }
 
-    @GetMapping("/list/lecture/{lectureId}")
+    @GetMapping("/list/lectures/{lectureId}")
     public ResponseEntity<StudiesResponseDto> findByLectureId(@PathVariable Long lectureId) {
         StudiesResponseDto studiesResponseDto = studyService.findByLectureId(lectureId);
 
         return ResponseEntity.ok(studiesResponseDto);
     }
 
-    @PutMapping("/list/update/{id}")
+    @PutMapping("/list/{id}")
     public ResponseEntity update(@PathVariable Long id, @RequestBody StudyRequestDto studyRequestDto) {
         Long updateId = studyService.update(id, studyRequestDto);
 
         return ResponseEntity.ok(updateId);
     }
 
-    @DeleteMapping("/list/delete/{id}")
+    @DeleteMapping("/list/{id}")
     public ResponseEntity deleteById(@PathVariable Long id) {
         studyService.deleteById(id);
 
         return ResponseEntity.ok(id);
     }
 
-    @DeleteMapping("/list/delete/lecture/{id}")
+    @DeleteMapping("/list/lectures/{id}")
     public ResponseEntity deleteByLectureId(@PathVariable("id") Long lectureId) {
         studyService.deleteByLectureId(lectureId);
 
         return ResponseEntity.ok(lectureId);
     }
 
-    @DeleteMapping("/list/delete/user/{id}")
+    @DeleteMapping("/list/users/{id}")
     public ResponseEntity deleteByUserId(@PathVariable("id") Long userId) {
         studyService.deleteByUserId(userId);
 

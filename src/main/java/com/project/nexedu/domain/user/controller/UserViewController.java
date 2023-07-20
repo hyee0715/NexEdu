@@ -46,19 +46,19 @@ public class UserViewController {
         return "account/login";
     }
 
-    @GetMapping("/user/signUp")
+    @GetMapping("/user/sign-up")
     public String signUp(Model model) {
         model.addAttribute("userSignUpRequestDto", new UserSignUpRequestDto());
-        return "account/signUp";
+        return "account/sign-up";
     }
 
-    @PostMapping("/user/signUp")
+    @PostMapping("/user/sign-up")
     public String signUp(@Validated(
             {RealNameValidationSequence.class, UsernameValidationSequence.class, NicknameValidationSequence.class,
                     PasswordValidationSequence.class, EmailValidationSequence.class}) @ModelAttribute UserSignUpRequestDto userSignUpRequestDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
-            return "account/signUp";
+            return "account/sign-up";
         }
 
         userService.joinUser(userSignUpRequestDto);

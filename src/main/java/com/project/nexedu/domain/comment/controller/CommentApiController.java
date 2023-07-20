@@ -18,20 +18,20 @@ public class CommentApiController {
     private final CommentService commentService;
     private final UserService userService;
 
-    @PostMapping("/{boardId}/comment")
+    @PostMapping("/{boardId}")
     public ResponseEntity save(@PathVariable Long boardId, @RequestBody CommentSaveRequestDto commentSaveRequestDto) {
         User user = userService.getCurrentUser();
         CommentResponseDto commentResponseDto = commentService.save(boardId, commentSaveRequestDto, user);
         return ResponseEntity.ok(commentResponseDto.getId());
     }
 
-    @PutMapping("/{boardId}/comment/{commentId}")
+    @PutMapping("/{boardId}/comments/{commentId}")
     public ResponseEntity update(@PathVariable Long boardId, @PathVariable Long commentId, @RequestBody CommentUpdateRequestDto commentUpdateRequestDto) {
         commentService.update(commentId, commentUpdateRequestDto);
         return ResponseEntity.ok(commentId);
     }
 
-    @DeleteMapping("/{boardId}/comment/{commentId}")
+    @DeleteMapping("/{boardId}/comments/{commentId}")
     public ResponseEntity delete(@PathVariable Long boardId, @PathVariable Long commentId) {
         commentService.delete(commentId);
         return ResponseEntity.ok(commentId);
