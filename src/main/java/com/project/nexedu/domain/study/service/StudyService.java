@@ -44,21 +44,21 @@ public class StudyService {
     }
 
     public StudiesResponseDto findAll() {
-        List<Study> studies = studyRepository.findAll();
+        List<Study> studies = studyRepository.findAllByOrderByIdDesc();
 
         return new StudiesResponseDto(studies);
     }
 
     public StudiesResponseDto findByUserId(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("회원이 없습니다."));
-        List<Study> studies = studyRepository.findByUser(user);
+        List<Study> studies = studyRepository.findByUserOrderByIdDesc(user);
 
         return new StudiesResponseDto(studies);
     }
 
     public StudiesResponseDto findByLectureId(Long lectureId) {
         Lecture lecture = lectureRepository.findById(lectureId).orElseThrow(() -> new IllegalArgumentException("강의가 없습니다."));
-        List<Study> studies = studyRepository.findByLecture(lecture);
+        List<Study> studies = studyRepository.findByLectureOrderByIdDesc(lecture);
 
         return new StudiesResponseDto(studies);
     }

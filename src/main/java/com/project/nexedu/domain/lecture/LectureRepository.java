@@ -9,7 +9,9 @@ import java.util.List;
 @Repository
 public interface LectureRepository extends JpaRepository<Lecture, Long> {
 
-    List<Lecture> findByInstructor(User instructor);
+    List<Lecture> findAllByOrderByIdDesc();
+
+    List<Lecture> findByInstructorOrderByIdDesc(User instructor);
 
     void deleteByInstructor(User instructor);
 }

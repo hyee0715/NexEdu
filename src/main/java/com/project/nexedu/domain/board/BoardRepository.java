@@ -8,8 +8,10 @@ import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
-    List<Board> findByLecture(Lecture lecture);
-    List<Board> findByWriter(User writer);
+    List<Board> findAllByOrderByIdDesc();
+
+    List<Board> findByLectureOrderByIdDesc(Lecture lecture);
+    List<Board> findByWriterOrderByIdDesc(User writer);
 
     void deleteByLecture(Lecture lecture);
     void deleteByWriter(User writer);

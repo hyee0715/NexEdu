@@ -55,7 +55,7 @@ public class CommentService {
 
     public CommentsResponseDto findByWriterId(Long writerId) {
         User user = userRepository.findById(writerId).orElseThrow(() -> new IllegalArgumentException("회원이 존재하지 않습니다."));
-        List<Comment> comments = commentRepository.findByWriter(user);
+        List<Comment> comments = commentRepository.findByWriterOrderByIdDesc(user);
 
         return new CommentsResponseDto(comments);
     }

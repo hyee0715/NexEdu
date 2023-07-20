@@ -37,7 +37,7 @@ public class LectureService {
     }
 
     public LecturesResponseDto findAll() {
-        List<Lecture> lectures = lectureRepository.findAll();
+        List<Lecture> lectures = lectureRepository.findAllByOrderByIdDesc();
 
         return new LecturesResponseDto(lectures);
     }
@@ -50,7 +50,7 @@ public class LectureService {
 
     public LecturesResponseDto findByInstructorId(Long instructorId) {
         User instructor = userRepository.findById(instructorId).orElseThrow(() -> new IllegalArgumentException("회원이 존재하지 않습니다."));
-        List<Lecture> lectures = lectureRepository.findByInstructor(instructor);
+        List<Lecture> lectures = lectureRepository.findByInstructorOrderByIdDesc(instructor);
 
         return new LecturesResponseDto(lectures);
     }

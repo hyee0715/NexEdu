@@ -39,7 +39,7 @@ public class BoardService {
     }
 
     public BoardsResponseDto findAll() {
-        List<Board> boards = boardRepository.findAll();
+        List<Board> boards = boardRepository.findAllByOrderByIdDesc();
 
         return new BoardsResponseDto(boards);
     }
@@ -52,14 +52,14 @@ public class BoardService {
 
     public BoardsResponseDto findByLectureId(Long lectureId) {
         Lecture lecture = lectureRepository.findById(lectureId).orElseThrow(() -> new IllegalArgumentException("강의가 존재하지 않습니다."));
-        List<Board> boards = boardRepository.findByLecture(lecture);
+        List<Board> boards = boardRepository.findByLectureOrderByIdDesc(lecture);
 
         return new BoardsResponseDto(boards);
     }
 
     public BoardsResponseDto findByUserId(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("회원이 존재하지 않습니다."));
-        List<Board> boards = boardRepository.findByWriter(user);
+        List<Board> boards = boardRepository.findByWriterOrderByIdDesc(user);
 
         return new BoardsResponseDto(boards);
     }

@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    List<Comment> findByWriter(User writer);
+    List<Comment> findByWriterOrderByIdDesc(User writer);
 
     void deleteByWriter(User writer);
 }
