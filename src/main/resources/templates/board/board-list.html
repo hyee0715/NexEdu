@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header">
+<head th:replace="~{fragments/header :: header}">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 
@@ -48,7 +48,7 @@
         </div>
     </main>
 </div> <!-- /container -->
-<div th:replace="fragments/footer :: footer"/>
+<div th:replace="~{fragments/footer :: footer}"/>
 
 </body>
 </html>
