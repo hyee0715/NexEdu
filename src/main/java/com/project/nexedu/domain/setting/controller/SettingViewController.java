@@ -145,7 +145,7 @@ public class SettingViewController {
         return "redirect:/setting/comments";
     }
 
-    @GetMapping("/uploadLectures")
+    @GetMapping("/upload-lectures")
     public String getUploadLectures(Model model) {
         User user = userService.getCurrentUser();
         model.addAttribute("nickname", user.getNickname());
@@ -156,13 +156,13 @@ public class SettingViewController {
         return "setting/upload-lectures";
     }
 
-    @PostMapping("/uploadLectures/delete")
+    @PostMapping("/upload-lectures/delete")
     public String deleteUploadLectures(@RequestParam List<String> lectureIds) {
         lectureIds.stream()
                 .map(Long::valueOf)
                 .forEach(lectureService::delete);
 
-        return "redirect:/setting/uploadLectures";
+        return "redirect:/setting/upload-lectures";
     }
 
     @GetMapping("/withdrawal")

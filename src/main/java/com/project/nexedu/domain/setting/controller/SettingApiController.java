@@ -34,7 +34,7 @@ public class SettingApiController {
         return ResponseEntity.ok(userResponseDto);
     }
 
-    @PutMapping("/user/update")
+    @PutMapping("/user/detail")
     public ResponseEntity update(@Validated({RealNameValidationSequence.class, NicknameValidationSequence.class,
             PasswordValidationSequence.class, EmailValidationSequence.class}) @RequestBody UserUpdateRequestDto userUpdateRequestDto) {
         Long updatedUserId = userService.update(userUpdateRequestDto);
@@ -42,7 +42,7 @@ public class SettingApiController {
         return ResponseEntity.ok("회원 정보 수정 완료, id = " + updatedUserId);
     }
 
-    @DeleteMapping("/user/delete/{userId}")
+    @DeleteMapping("/user/detail/{userId}")
     public ResponseEntity delete(@PathVariable("userId") Long userId) {
         userService.deleteById(userId);
 

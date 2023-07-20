@@ -10,7 +10,7 @@ var main = {
 
         $.ajax({
             type: 'DELETE',
-            url: '/api/user/delete/'+userId,
+            url: '/api/user/detail/'+userId,
         }).done(function() {
             alert('탈퇴가 완료되었습니다.');
             window.location.href = '/logout';
