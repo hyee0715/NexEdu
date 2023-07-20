@@ -23,7 +23,7 @@
                     <div th:each="lecture : ${lectures.getLectures()}">
                         <div class="col">
                             <div class="card">
-                                <!--                                <img src="..." class="card-img-top" alt="...">-->
+                                <img src="/image/sample.png" class="card-img-top" alt="...">
                                 <div class="card-body" style="margin-top: 10px; margin-bottom: 10px;">
                                     <h4 class="card-title">
                                         <a th:href="'/lecture/detail/'+${lecture.id}" th:text="${lecture.title}"

@@ -55,7 +55,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> request
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
                         .requestMatchers( "/lecture/write", "/board/write/**").hasRole(Role.USER.name())
-                        .requestMatchers("/**", "/status", "/images/**",  "/api/**", "/user/login", "/user/signUp",  "/board/detail").permitAll()
+                        .requestMatchers("/**", "/status", "/image/**",  "/api/**", "/user/login", "/user/signUp",  "/board/detail").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(login -> login
