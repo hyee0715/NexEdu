@@ -3,7 +3,7 @@ package com.project.nexedu.domain.board.controller;
 import com.project.nexedu.config.PrincipalDetails;
 import com.project.nexedu.domain.board.dto.BoardResponseDto;
 import com.project.nexedu.domain.board.dto.BoardsResponseDto;
-import com.project.nexedu.domain.board.serivce.BoardService;
+import com.project.nexedu.domain.board.service.BoardService;
 import com.project.nexedu.domain.comment.Comment;
 import com.project.nexedu.domain.lecture.dto.LectureResponseDto;
 import com.project.nexedu.domain.lecture.service.LectureService;

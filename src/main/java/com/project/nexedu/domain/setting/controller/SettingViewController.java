@@ -1,7 +1,7 @@
 package com.project.nexedu.domain.setting.controller;
 
 import com.project.nexedu.domain.board.dto.BoardsResponseDto;
-import com.project.nexedu.domain.board.serivce.BoardService;
+import com.project.nexedu.domain.board.service.BoardService;
 import com.project.nexedu.domain.comment.dto.CommentsResponseDto;
 import com.project.nexedu.domain.comment.service.CommentService;
 import com.project.nexedu.domain.lecture.Lecture;

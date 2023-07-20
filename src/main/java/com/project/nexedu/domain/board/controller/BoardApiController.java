@@ -4,7 +4,7 @@ import com.project.nexedu.domain.board.dto.BoardResponseDto;
 import com.project.nexedu.domain.board.dto.BoardSaveRequestDto;
 import com.project.nexedu.domain.board.dto.BoardUpdateRequestDto;
 import com.project.nexedu.domain.board.dto.BoardsResponseDto;
-import com.project.nexedu.domain.board.serivce.BoardService;
+import com.project.nexedu.domain.board.service.BoardService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

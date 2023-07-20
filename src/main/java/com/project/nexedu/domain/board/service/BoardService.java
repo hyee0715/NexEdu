@@ -1,4 +1,4 @@
-package com.project.nexedu.domain.board.serivce;
+package com.project.nexedu.domain.board.service;
 
 import com.project.nexedu.domain.board.Board;
 import com.project.nexedu.domain.board.BoardRepository;
