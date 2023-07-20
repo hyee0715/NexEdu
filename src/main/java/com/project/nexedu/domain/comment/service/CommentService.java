@@ -7,10 +7,14 @@ import com.project.nexedu.domain.comment.CommentRepository;
 import com.project.nexedu.domain.comment.dto.CommentResponseDto;
 import com.project.nexedu.domain.comment.dto.CommentSaveRequestDto;
 import com.project.nexedu.domain.comment.dto.CommentUpdateRequestDto;
+import com.project.nexedu.domain.comment.dto.CommentsResponseDto;
 import com.project.nexedu.domain.user.User;
+import com.project.nexedu.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -18,6 +22,7 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
     private final BoardRepository boardRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public CommentResponseDto save(Long boardId, CommentSaveRequestDto commentSaveRequestDto, User writer) {
@@ -46,5 +51,12 @@ public class CommentService {
 
         commentRepository.delete(comment);
         return id;
+    }
+
+    public CommentsResponseDto findByWriterId(Long writerId) {
+        User user = userRepository.findById(writerId).orElseThrow(() -> new IllegalArgumentException("회원이 존재하지 않습니다."));
+        List<Comment> comments = commentRepository.findByWriter(user);
+
+        return new CommentsResponseDto(comments);
     }
 }

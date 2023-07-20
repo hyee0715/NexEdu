@@ -2,6 +2,8 @@ package com.project.nexedu.domain.setting.controller;
 
 import com.project.nexedu.domain.board.dto.BoardsResponseDto;
 import com.project.nexedu.domain.board.serivce.BoardService;
+import com.project.nexedu.domain.comment.dto.CommentsResponseDto;
+import com.project.nexedu.domain.comment.service.CommentService;
 import com.project.nexedu.domain.lecture.Lecture;
 import com.project.nexedu.domain.lecture.dto.LecturesResponseDto;
 import com.project.nexedu.domain.lecture.service.LectureService;
@@ -42,6 +44,7 @@ public class SettingViewController {
     private final StudyService studyService;
     private final BoardService boardService;
     private final LectureService lectureService;
+    private final CommentService commentService;
 
     @InitBinder
     public void validatorBinder(WebDataBinder binder) {
@@ -120,6 +123,26 @@ public class SettingViewController {
                 .forEach(boardService::delete);
 
         return "redirect:/setting/boards";
+    }
+
+    @GetMapping("/comments")
+    public String getUserComments(Model model) {
+        User user = userService.getCurrentUser();
+        model.addAttribute("nickname", user.getNickname());
+
+        CommentsResponseDto commentsResponseDto = commentService.findByWriterId(user.getId());
+        model.addAttribute("comments", commentsResponseDto);
+
+        return "setting/user-comments";
+    }
+
+    @PostMapping("/comments/delete")
+    public String deleteComments(@RequestParam List<String> commentIds) {
+        commentIds.stream()
+                .map(Long::valueOf)
+                .forEach(commentService::delete);
+
+        return "redirect:/setting/comments";
     }
 
     @GetMapping("/uploadLectures")

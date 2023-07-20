@@ -24,19 +24,6 @@
             white-space: nowrap;
             -webkit-overflow-scrolling: touch;
         }
-
-        .field-error-form {
-            border-color: #dc3545;
-            color: #dc3545;
-        }
-
-        .field-error {
-            border-color: #dc3545;
-            color: #dc3545;
-            font-size: 12px;
-            padding-left: 3px;
-        }
-
     </style>
 
     <!-- Custom styles for this template -->
@@ -117,7 +104,7 @@
                     <div class="container">
                         <main role="main" class="container">
                             <br>
-                            <h4 class="mb-3">수강 신청 목록</h4>
+                            <h4 class="mb-3">작성한 댓글 목록</h4>
                             <br>
 
                             <div class="starter-template">
@@ -131,44 +118,39 @@
                                             </label>
                                         </th>
                                         <th class="col-md-1">번호</th>
-                                        <th class="col-md-5">제목</th>
-                                        <th class="col-md-2">강사명</th>
-                                        <th class="col-md-1">분량</th>
-                                        <th class="col-md-2">게시 날짜</th>
+                                        <th class="col-md-5">내용</th>
+                                        <th class="col-md-2">작성자</th>
+                                        <th class="col-md-2">생성 날짜</th>
+                                        <th class="col-md-2">수정 날짜</th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
                                     <!-- CONTENTS !-->
-                                    <tr th:each="lecture : ${lectures}">
+                                    <tr th:each="comment : ${comments.getComments()}">
                                         <td style="text-align: center">
                                             <label class="checkbox-inline">
                                                 <input type="checkbox" name="chk" class="chk" onclick="chkClicked()"
-                                                       th:value="${lecture.id}">
+                                                       th:value="${comment.id}">
                                             </label>
                                         </td>
-                                        <td th:text="${lecture.id}" style="text-align: center"></td>
-                                        <td><a th:href="'/lecture/detail/'+${lecture.id}" th:text="${lecture.title}"
+                                        <td th:text="${comment.id}" style="text-align: center"></td>
+                                        <td><a th:href="'/board/detail/'+${comment.getBoard().getId()}" th:text="${comment.content}"
                                                style="text-decoration:none; color: inherit;"></a></td>
-                                        <td th:text="${lecture.instructor.getNickname()}"
+                                        <td th:text="${comment.writer.getNickname()}"
                                             style="text-align: center"></td>
-                                        <td th:text="${lecture.runningTime} + '분'" style="text-align: center"></td>
-                                        <td th:text="${lecture.createdDate} ? ${#temporals.format(lecture.createdDate,'yyyy-MM-dd HH:mm')} : ${lecture.createdDate}"
+                                        <td th:text="${comment.createdDate} ? ${#temporals.format(comment.createdDate,'yyyy-MM-dd HH:mm')} : ${comment.createdDate}"
+                                            style="text-align: center"></td>
+                                        <td th:text="${comment.modifiedDate} ? ${#temporals.format(comment.modifiedDate,'yyyy-MM-dd HH:mm')} : ${comment.modifiedDate}"
                                             style="text-align: center"></td>
                                     </tr>
                                     </tbody>
                                 </table>
 
                                 <div style="display: inline-block; float: right;">
-                                    <a href='javascript:lectureDelete();' class="btn btn-outline-danger">수강 취소</a>
-                                </div>
-
-                                <div style="display: inline-block; float: right;">
-                                    <a style="float: right; margin-right: 15px;" class="btn btn-outline-dark"
-                                       th:href="@{/}">수강 신청 하기</a>
+                                    <a href='javascript:commentDelete();' class="btn btn-outline-danger">댓글 삭제</a>
                                 </div>
                             </div>
-
                         </main>
                     </div> <!-- /container -->
                 </div>
@@ -183,7 +165,7 @@
 
 <script>
     //체크박스 전체 선택 클릭 이벤트
-    function allChecked(target){
+    function allChecked(target) {
 
         //전체 체크박스 버튼
         const checkbox = document.getElementById('allCheckBox');
@@ -192,19 +174,17 @@
         const is_checked = checkbox.checked;
 
         //전체 체크박스 제외한 모든 체크박스
-        if(is_checked){
+        if (is_checked) {
             //체크박스 전체 체크
             chkAllChecked()
-        }
-
-        else{
+        } else {
             //체크 박스 전체 해제
             chkAllUnChecked()
         }
     }
 
     //자식 체크 박스 클릭 이벤트
-    function chkClicked(){
+    function chkClicked() {
 
         //체크박스 전체 개수
         const allCount = document.querySelectorAll(".chk").length;
@@ -215,32 +195,32 @@
         const selectedElementsCnt = selectedElements.length;
 
         //체크박스 전체 개수와 체크된 체크박스 전체 개수가 같으면 전체 체크박스 체크
-        if(allCount == selectedElementsCnt){
+        if (allCount == selectedElementsCnt) {
             document.getElementById('allCheckBox').checked = true;
         }
 
         //같지 않으면 전체 체크박스 해제
-        else{
+        else {
             document.getElementById('allCheckBox').checked = false;
         }
     }
 
     //체크박스 전체 체크
-    function chkAllChecked(){
-        document.querySelectorAll(".chk").forEach(function(v, i) {
+    function chkAllChecked() {
+        document.querySelectorAll(".chk").forEach(function (v, i) {
             v.checked = true;
         });
     }
 
     //체크박스 전체 체크 해제
-    function chkAllUnChecked(){
-        document.querySelectorAll(".chk").forEach(function(v, i) {
+    function chkAllUnChecked() {
+        document.querySelectorAll(".chk").forEach(function (v, i) {
             v.checked = false;
         });
     }
 
     //수강 신청 목록 삭제
-    function lectureDelete(){
+    function commentDelete() {
         //체크박스 체크 된 항목
         const query = 'input[name="chk"]:checked'
         const selectedElements = document.querySelectorAll(query)
@@ -248,26 +228,24 @@
         //체크박스 체크된 항목의 개수
         const selectedElementsCnt = selectedElements.length;
 
-        if(selectedElementsCnt == 0){
-            alert("수강 취소할 강의를 선택해주세요.");
+        if (selectedElementsCnt == 0) {
+            alert("삭제할 댓글을 선택해주세요.");
             return false;
-        }
-
-        else{
-            if (confirm("선택한 강의를 수강 취소하시겠습니까?")) {
+        } else {
+            if (confirm("선택한 댓글을 삭제하시겠습니까?")) {
                 const arr = new Array(selectedElementsCnt);
 
-                document.querySelectorAll('input[name="chk"]:checked').forEach(function(v, i) {
+                document.querySelectorAll('input[name="chk"]:checked').forEach(function (v, i) {
                     arr[i] = v.value;
                 });
 
                 const form = document.createElement('form');
                 form.setAttribute('method', 'post');        //Post 메소드 적용
-                form.setAttribute('action', '/setting/lectures/delete');
+                form.setAttribute('action', '/setting/comments/delete');
 
                 var input1 = document.createElement('input');
                 input1.setAttribute("type", "hidden");
-                input1.setAttribute("name", "lectureIds");
+                input1.setAttribute("name", "commentIds");
                 input1.setAttribute("value", arr);
                 form.appendChild(input1);
                 console.log(form);
