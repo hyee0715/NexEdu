@@ -54,7 +54,7 @@ public class SecurityConfig {
         http.csrf().disable().cors().disable()
                 .authorizeHttpRequests(request -> request
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-                        .requestMatchers( "/lecture/write", "/boards/new/**").hasRole(Role.USER.name())
+                        .requestMatchers( "/lectures/new", "/boards/new/**").hasRole(Role.USER.name())
                         .requestMatchers("/**","/image/**",  "/api/**", "/user/login", "/user/signUp",  "/boards/detail").permitAll()
                         .anyRequest().authenticated()
                 )

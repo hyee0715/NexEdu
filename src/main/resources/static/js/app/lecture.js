@@ -67,7 +67,7 @@ var main = {
 
         $.ajax({
             type: 'POST',
-            url: '/api/lecture/save',
+            url: '/api/lectures',
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
@@ -134,13 +134,13 @@ var main = {
 
         $.ajax({
             type: 'PUT',
-            url: '/api/lecture/detail/update/'+id,
+            url: '/api/lectures/detail/' + id,
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
             alert('강의가 수정되었습니다.');
-            window.location.href = '/';
+            window.location.href = '/lectures/detail/' + id;
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -150,7 +150,7 @@ var main = {
 
         $.ajax({
             type: 'DELETE',
-            url: '/api/lecture/detail/delete/'+id,
+            url: '/api/lectures/detail/' + id,
             dataType: 'json',
             contentType:'application/json; charset=utf-8'
         }).done(function() {

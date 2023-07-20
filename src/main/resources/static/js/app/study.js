@@ -19,7 +19,7 @@ var main = {
             data: JSON.stringify(data)
         }).done(function () {
             alert('수강 신청이 완료되었습니다.');
-            window.location.href = '/lecture/detail/' + data.lectureId;
+            window.location.href = '/lectures/detail/' + data.lectureId;
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

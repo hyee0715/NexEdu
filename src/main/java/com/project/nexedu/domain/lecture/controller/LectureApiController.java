@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/lecture")
+@RequestMapping("/api/lectures")
 public class LectureApiController {
 
     private final LectureService lectureService;
 
-    @PostMapping("/save")
+    @PostMapping
     public ResponseEntity<LectureResponseDto> save(@RequestBody LectureSaveRequestDto lectureSaveRequestDto) {
         LectureResponseDto lectureResponseDto = lectureService.save(lectureSaveRequestDto);
 
@@ -40,14 +40,14 @@ public class LectureApiController {
         return ResponseEntity.ok(lectureResponseDto);
     }
 
-    @PutMapping("/detail/update/{id}")
+    @PutMapping("/detail/{id}")
     public ResponseEntity update(@PathVariable Long id, @RequestBody LectureUpdateRequestDto lectureUpdateRequestDto) {
         Long updateId = lectureService.update(id, lectureUpdateRequestDto);
 
         return ResponseEntity.ok(updateId);
     }
 
-    @DeleteMapping("/detail/delete/{id}")
+    @DeleteMapping("/detail/{id}")
     public ResponseEntity delete(@PathVariable Long id) {
         lectureService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body(id);

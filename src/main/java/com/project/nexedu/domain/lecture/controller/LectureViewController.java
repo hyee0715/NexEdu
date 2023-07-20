@@ -37,7 +37,7 @@ public class LectureViewController {
         return "index";
     }
 
-    @GetMapping("/lecture/detail/{id}")
+    @GetMapping("/lectures/detail/{id}")
     public String detail(@PathVariable("id") Long id, @AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
         if (principalDetails != null) {
             model.addAttribute("nickname", principalDetails.getUser().getNickname());
@@ -57,7 +57,7 @@ public class LectureViewController {
         return "lecture/lecture-detail";
     }
 
-    @GetMapping("/lecture/write")
+    @GetMapping("/lectures/new")
     public String write(Model model) {
         User user = userService.getCurrentUser();
 
@@ -67,7 +67,7 @@ public class LectureViewController {
         return "lecture/lecture-write";
     }
 
-    @GetMapping("/lecture/detail/update/{id}")
+    @GetMapping("/lectures/update/{id}")
     public String update(@PathVariable("id") Long id, Model model) {
         User user = userService.getCurrentUser();
 

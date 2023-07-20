@@ -135,7 +135,7 @@
                                             </label>
                                         </td>
                                         <td th:text="${lecture.id}" style="text-align: center"></td>
-                                        <td><a th:href="'/lecture/detail/'+${lecture.id}" th:text="${lecture.title}"
+                                        <td><a th:href="'/lectures/detail/'+${lecture.id}" th:text="${lecture.title}"
                                                style="text-decoration:none; color: inherit;"></a></td>
                                         <td th:text="${lecture.instructor.getNickname()}"
                                             style="text-align: center"></td>
@@ -152,7 +152,7 @@
 
                                 <div style="display: inline-block; float: right;">
                                     <a style="float: right; margin-right: 15px;" class="btn btn-outline-dark"
-                                       th:href="@{/lecture/write}">강의 등록 하기</a>
+                                       th:href="@{/lectures/new}">강의 등록하기</a>
                                 </div>
                             </div>
 

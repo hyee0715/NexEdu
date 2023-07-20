@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <div style="text-align: center;">
                         <a class="btn btn-outline-dark"
-                           th:href="@{/lecture/write}">강의 등록하기</a>
+                           th:href="@{/lectures/new}">강의 등록하기</a>
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                                 <img src="/image/sample.png" class="card-img-top" alt="...">
                                 <div class="card-body" style="margin-top: 10px; margin-bottom: 10px;">
                                     <h4 class="card-title">
-                                        <a th:href="'/lecture/detail/'+${lecture.id}" th:text="${lecture.title}"
+                                        <a th:href="'/lectures/detail/'+${lecture.id}" th:text="${lecture.title}"
                                            style="text-decoration:none; color: inherit;"></a>
                                     </h4>
                                     <div class="card-text" style="margin-top: 10px;">

@@ -156,7 +156,7 @@
             <!-- 수정/삭제 -->
             <div th:if="${lecture.instructor.getNickname() == nickname && lecture.instructor.getId() == userId}"
                  style="display: inline-block">
-                <a th:href="@{'/lecture/detail/update/' + ${lecture.id}}">
+                <a th:href="@{'/lectures/update/' + ${lecture.id}}">
                     <button class="btn btn-outline-primary">수정</button>
                 </a>
             </div>
