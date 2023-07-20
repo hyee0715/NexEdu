@@ -31,7 +31,7 @@
                         <!-- CONTENTS !-->
                         <tr th:each="board : ${boards.getBoards()}">
                             <td th:text="${board.id}" style="text-align: center"></td>
-                            <td><a th:href="'/board/list/' + ${lecture.id} + '/detail/'+${board.id}" th:text="${board.title}"
+                            <td><a th:href="'/boards/detail/'+${board.id}" th:text="${board.title}"
                                    style="text-decoration:none; color: inherit;"></a></td>
                             <td th:text="${board.writer.getNickname()}" style="text-align: center"></td>
                             <td th:text="${board.createdDate} ? ${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')} : ${board.createdDate}"
@@ -42,7 +42,7 @@
 
                     <!-- 글쓰기 버튼 -->
                     <a style="float: right;" class="btn btn-outline-dark"
-                       th:href="'/board/write/' + ${lecture.id}">글쓰기</a>
+                       th:href="'/boards/new/' + ${lecture.id}">글쓰기</a>
                 </div>
             </div>
         </div>

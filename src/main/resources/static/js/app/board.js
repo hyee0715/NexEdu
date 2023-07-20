@@ -54,13 +54,13 @@ var main = {
 
         $.ajax({
             type: 'POST',
-            url: '/api/board/save/' + data.lectureId,
+            url: '/api/boards/' + data.lectureId,
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
             alert('글이 등록되었습니다.');
-            window.location.href = '/board/list/' + data.lectureId;
+            window.location.href = '/boards/' + data.lectureId + '/list';
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -104,17 +104,16 @@ var main = {
         };
 
         var boardId = $('#boardId').val();
-        var lectureId = $('#lectureId').val();
 
         $.ajax({
             type: 'PUT',
-            url: '/api/board/detail/update/' + boardId,
+            url: '/api/boards/detail/' + boardId,
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
             alert('글이 수정되었습니다.');
-            window.location.href = '/board/list/' + lectureId + '/detail/' + boardId;
+            window.location.href = '/boards/detail/' + boardId;
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -125,12 +124,12 @@ var main = {
 
         $.ajax({
             type: 'DELETE',
-            url: '/api/board/detail/delete/' + boardId,
+            url: '/api/boards/detail/' + boardId,
             dataType: 'json',
             contentType:'application/json; charset=utf-8'
         }).done(function() {
             alert('글이 삭제되었습니다.');
-            window.location.href = '/board/list/' + lectureId;
+            window.location.href = '/boards/' + lectureId + '/list';
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

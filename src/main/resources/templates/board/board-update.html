@@ -10,7 +10,7 @@
         <br><br>
         <div class="p-5 mb-4 bg-light rounded-3">
             <div class="container-fluid py-5">
-                <h5 th:text="${lectureTitle}" style="margin-top: 10px; margin-bottom: 25px; color: gray;">강의 이름</h5>
+                <h5 th:text="${board.getLecture().title}" style="margin-top: 10px; margin-bottom: 25px; color: gray;">강의 이름</h5>
 
                 <h1 class="display-5 fw-bold">게시글 등록</h1>
                 <br>
@@ -19,7 +19,7 @@
                     <form id="update-validate">
                         <input type="hidden" name="writerId" id="writerId" th:value="${userId}"/>
                         <input type="hidden" name="boardId" id="boardId" th:value="${board.id}"/>
-                        <input type="hidden" name="lectureId" id="lectureId" th:value="${lectureId}"/>
+                        <input type="hidden" name="lectureId" id="lectureId" th:value="${board.getLecture().id}"/>
 
                         <div class="form-group">
                             <label style="float: left" for="title" class="col-sm-2 control-label">제목</label>
@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         <div class="btn_wrap text-center" style="margin-top: 20px;">
-                            <a th:href="@{'/board/list/' + ${board.getLecture().id}}" class="btn btn-outline-secondary">돌아가기</a>
+                            <a th:href="@{'/boards/list/' + ${board.getLecture().id}}" class="btn btn-outline-secondary">돌아가기</a>
                             <button type="button" class="btn btn-outline-primary waves-effect waves-light"
                                     id="btn-update">저장하기
                             </button>

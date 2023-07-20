@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/board")
+@RequestMapping("/api/boards")
 public class BoardApiController {
 
     private final BoardService boardService;
 
-    @PostMapping("/save/{lectureId}")
+    @PostMapping("/{lectureId}")
     public ResponseEntity<BoardResponseDto> save(@PathVariable("lectureId") Long lectureId, @RequestBody BoardSaveRequestDto boardSaveRequestDto) {
         BoardResponseDto boardResponseDto = boardService.save(lectureId, boardSaveRequestDto);
 
@@ -30,7 +30,7 @@ public class BoardApiController {
         return ResponseEntity.ok(boardsResponseDto);
     }
 
-    @GetMapping("/list/lecture/{lectureId}")
+    @GetMapping("/list/{lectureId}")
     public ResponseEntity<BoardsResponseDto> findByLectureId(@PathVariable("lectureId") Long lectureId) {
         BoardsResponseDto boardsResponseDto = boardService.findByLectureId(lectureId);
 
@@ -44,14 +44,14 @@ public class BoardApiController {
         return ResponseEntity.ok(boardResponseDto);
     }
 
-    @PutMapping("/detail/update/{boardId}")
+    @PutMapping("/detail/{boardId}")
     public ResponseEntity update(@PathVariable("boardId") Long boardId, @RequestBody BoardUpdateRequestDto boardUpdateRequestDto) {
         Long updateId = boardService.update(boardId, boardUpdateRequestDto);
 
         return ResponseEntity.ok(updateId);
     }
 
-    @DeleteMapping("/detail/delete/{boardId}")
+    @DeleteMapping("/detail/{boardId}")
     public ResponseEntity delete(@PathVariable("boardId") Long boardId) {
         boardService.delete(boardId);
 

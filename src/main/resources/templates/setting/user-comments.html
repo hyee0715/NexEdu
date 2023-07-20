@@ -135,7 +135,7 @@
                                             </label>
                                         </td>
                                         <td th:text="${comment.id}" style="text-align: center"></td>
-                                        <td><a th:href="'/board/detail/'+${comment.getBoard().getId()}" th:text="${comment.content}"
+                                        <td><a th:href="'/boards/detail/'+${comment.getBoard().getId()}" th:text="${comment.content}"
                                                style="text-decoration:none; color: inherit;"></a></td>
                                         <td th:text="${comment.writer.getNickname()}"
                                             style="text-align: center"></td>
