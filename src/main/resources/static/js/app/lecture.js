@@ -42,6 +42,19 @@ var main = {
             return;
         }
 
+        $("#write-validate").find("input[type=number]").each(function(index, item){
+            //띄어쓰기도 빈 값으로 체크함
+            if ($(this).val().trim() == '') {
+                alert("분량을 입력하세요.")
+                isRight = false;
+                return false;
+            }
+        });
+
+        if (!isRight) {
+            return;
+        }
+
         $(this).prop("disabled", true);
         $(this).prop("disabled", false);
 
@@ -85,6 +98,19 @@ var main = {
         //띄어쓰기도 빈 값으로 체크함
             if ($(this).val().trim() == '') {
                 alert("내용을 입력하세요.")
+                isRight = false;
+                return false;
+            }
+        });
+
+        if (!isRight) {
+            return;
+        }
+
+        $("#update-validate").find("input[type=number]").each(function(index, item){
+            //띄어쓰기도 빈 값으로 체크함
+            if ($(this).val().trim() == '') {
+                alert("분량을 입력하세요.")
                 isRight = false;
                 return false;
             }
