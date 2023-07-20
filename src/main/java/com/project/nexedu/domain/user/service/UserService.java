@@ -1,5 +1,7 @@
 package com.project.nexedu.domain.user.service;
 
+import com.project.nexedu.domain.board.BoardRepository;
+import com.project.nexedu.domain.lecture.LectureRepository;
 import com.project.nexedu.domain.study.StudyRepository;
 import com.project.nexedu.domain.user.User;
 import com.project.nexedu.domain.user.dto.UserResponseDto;
@@ -23,6 +25,8 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final StudyRepository studyRepository;
+    private final BoardRepository boardRepository;
+    private final LectureRepository lectureRepository;
 
     @Transactional
     public Long joinUser(UserSignUpRequestDto userSignUpRequestDto) {
@@ -43,10 +47,12 @@ public class UserService {
     }
 
     @Transactional
-    public void delete() {
-        User user = getCurrentUser();
+    public void deleteById(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("회원이 존재하지 않습니다."));
 
         studyRepository.deleteByUser(user);
+        boardRepository.deleteByWriter(user);
+        lectureRepository.deleteByInstructor(user);
         userRepository.delete(user);
     }
 

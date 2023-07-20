@@ -10,4 +10,6 @@ import java.util.List;
 public interface LectureRepository extends JpaRepository<Lecture, Long> {
 
     List<Lecture> findByInstructor(User instructor);
+
+    void deleteByInstructor(User instructor);
 }

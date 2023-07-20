@@ -141,4 +141,13 @@ public class SettingViewController {
 
         return "redirect:/setting/uploadLectures";
     }
+
+    @GetMapping("/withdrawal")
+    public String withdraw(Model model) {
+        User user = userService.getCurrentUser();
+        model.addAttribute("nickname", user.getNickname());
+        model.addAttribute("userId", user.getId());
+
+        return "setting/user-withdrawal";
+    }
 }

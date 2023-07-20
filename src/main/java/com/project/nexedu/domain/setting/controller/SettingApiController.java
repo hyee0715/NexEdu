@@ -42,9 +42,9 @@ public class SettingApiController {
         return ResponseEntity.ok("회원 정보 수정 완료, id = " + updatedUserId);
     }
 
-    @DeleteMapping("/user/delete")
-    public ResponseEntity delete() {
-        userService.delete();
+    @DeleteMapping("/user/delete/{userId}")
+    public ResponseEntity delete(@PathVariable("userId") Long userId) {
+        userService.deleteById(userId);
 
         return ResponseEntity.ok("회원 삭제 완료");
     }
