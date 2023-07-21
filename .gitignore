@@ -27,6 +27,7 @@ out/
 !**/src/test/**/out/
 application-persional.yaml
 application-jwt.yaml
+application-test.properties
 
 ### NetBeans ###
 /nbproject/private/
