@@ -35,7 +35,7 @@ public class BoardService {
         Board board = boardSaveRequestDto.toEntity();
         Board savedBoard = boardRepository.save(board);
 
-        return new BoardResponseDto(savedBoard.getId(), savedBoard.getTitle(), savedBoard.getWriter(), savedBoard.getContent(), savedBoard.getLecture(), savedBoard.getCreatedDate(), savedBoard.getModifiedDate(), savedBoard.getComments());
+        return new BoardResponseDto(savedBoard);
     }
 
     public BoardsResponseDto findAll() {
@@ -47,7 +47,7 @@ public class BoardService {
     public BoardResponseDto findById(Long id) {
         Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다."));
 
-        return new BoardResponseDto(board.getId(), board.getTitle(), board.getWriter(), board.getContent(), board.getLecture(), board.getCreatedDate(), board.getModifiedDate(), board.getComments());
+        return new BoardResponseDto(board);
     }
 
     public BoardsResponseDto findByLectureId(Long lectureId) {
