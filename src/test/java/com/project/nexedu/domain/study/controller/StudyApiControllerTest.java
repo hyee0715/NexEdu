@@ -50,11 +50,7 @@ class StudyApiControllerTest {
                 .userId(1L)
                 .build();
 
-        StudyResponseDto responseDto = StudyResponseDto.builder()
-                .id(1L)
-                .lecture(requestDto.getLecture())
-                .user(requestDto.getUser())
-                .build();
+        StudyResponseDto responseDto = new StudyResponseDto(1L, requestDto.getLecture(), requestDto.getUser());
 
         when(studyService.save(any(StudyRequestDto.class))).thenReturn(responseDto);
 

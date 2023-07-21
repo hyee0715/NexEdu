@@ -1,14 +1,12 @@
 package com.project.nexedu.domain.user.dto;
 
 import com.project.nexedu.domain.user.Role;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.project.nexedu.domain.user.User;
+import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
+@AllArgsConstructor
 public class UserResponseDto {
 
     private Long id;
@@ -19,14 +17,13 @@ public class UserResponseDto {
     private String email;
     private Role role;
 
-    @Builder
-    public UserResponseDto(Long id, String realName, String username, String password, String nickname, String email, Role role) {
-        this.id = id;
-        this.realName = realName;
-        this.username = username;
-        this.password = password;
-        this.nickname = nickname;
-        this.email = email;
-        this.role = role;
+    public UserResponseDto(User user) {
+        this.id = user.getId();
+        this.realName = user.getRealName();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.nickname = user.getNickname();
+        this.email = user.getEmail();
+        this.role = user.getRole();
     }
 }

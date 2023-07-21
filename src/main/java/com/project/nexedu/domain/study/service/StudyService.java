@@ -39,7 +39,7 @@ public class StudyService {
                 .orElseGet(() -> {
                     Study study = studyRequestDto.toEntity();
                     Study savedStudy = studyRepository.save(study);
-                    return new StudyResponseDto(savedStudy.getId(), savedStudy.getLecture(), savedStudy.getUser());
+                    return new StudyResponseDto(savedStudy);
                 });
     }
 
@@ -69,7 +69,7 @@ public class StudyService {
         Optional<Study> studyWrapper = studyRepository.findByLectureAndUser(lecture, user);
 
         return studyWrapper.map(alreadyExistingStudy ->
-                        new StudyResponseDto(alreadyExistingStudy.getId(), alreadyExistingStudy.getLecture(), alreadyExistingStudy.getUser()))
+                        new StudyResponseDto(alreadyExistingStudy))
                 .orElseGet(() -> new StudyResponseDto(null, null, null));
     }
 

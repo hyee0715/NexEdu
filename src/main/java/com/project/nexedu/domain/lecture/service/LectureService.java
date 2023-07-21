@@ -33,7 +33,7 @@ public class LectureService {
         Lecture lecture = lectureSaveRequestDto.toEntity();
         Lecture savedLecture = lectureRepository.save(lecture);
 
-        return new LectureResponseDto(savedLecture.getId(), savedLecture.getTitle(), savedLecture.getInstructor(), savedLecture.getDescription(), savedLecture.getRunningTime(), savedLecture.getCreatedDate(), savedLecture.getModifiedDate());
+        return new LectureResponseDto(savedLecture);
     }
 
     public LecturesResponseDto findAll() {
@@ -45,7 +45,7 @@ public class LectureService {
     public LectureResponseDto findById(Long id) {
         Lecture lecture = lectureRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("강의가 존재하지 않습니다."));
 
-        return new LectureResponseDto(lecture.getId(), lecture.getTitle(), lecture.getInstructor(), lecture.getDescription(), lecture.getRunningTime(), lecture.getCreatedDate(), lecture.getModifiedDate());
+        return new LectureResponseDto(lecture);
     }
 
     public LecturesResponseDto findByInstructorId(Long instructorId) {

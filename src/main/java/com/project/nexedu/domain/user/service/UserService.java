@@ -67,7 +67,7 @@ public class UserService {
     public UserResponseDto getCurrentUserResponseDto() {
         User user = getCurrentUser();
 
-        return new UserResponseDto(user.getId(), user.getRealName(), user.getUsername(), user.getPassword(), user.getNickname(), user.getEmail(), user.getRole());
+        return new UserResponseDto(user);
     }
 
     public User getCurrentUser() {

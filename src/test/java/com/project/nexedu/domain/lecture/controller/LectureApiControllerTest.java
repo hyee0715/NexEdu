@@ -53,13 +53,7 @@ class LectureApiControllerTest {
                 .runningTime(60L)
                 .build();
 
-        LectureResponseDto responseDto = LectureResponseDto.builder()
-                .id(1L)
-                .title("testLecture")
-                .instructor(null)
-                .description("testLectureDescription")
-                .runningTime(60L)
-                .build();
+        LectureResponseDto responseDto = new LectureResponseDto(1L, "testLecture", null, "testLectureDescription", 60L, null, null);
 
         when(lectureService.save(any(LectureSaveRequestDto.class))).thenReturn(responseDto);
 

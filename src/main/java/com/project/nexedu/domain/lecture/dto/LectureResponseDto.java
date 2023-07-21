@@ -1,16 +1,14 @@
 package com.project.nexedu.domain.lecture.dto;
 
+import com.project.nexedu.domain.lecture.Lecture;
 import com.project.nexedu.domain.user.User;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@NoArgsConstructor
+@AllArgsConstructor
 public class LectureResponseDto {
 
     private Long id;
@@ -21,14 +19,13 @@ public class LectureResponseDto {
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
 
-    @Builder
-    public LectureResponseDto(Long id, String title, User instructor, String description, long runningTime, LocalDateTime createdDate, LocalDateTime modifiedDate) {
-        this.id = id;
-        this.title = title;
-        this.instructor = instructor;
-        this.description = description;
-        this.runningTime = runningTime;
-        this.createdDate = createdDate;
-        this.modifiedDate = modifiedDate;
+    public LectureResponseDto(Lecture lecture) {
+        this.id = lecture.getId();
+        this.title = lecture.getTitle();
+        this.instructor = lecture.getInstructor();
+        this.description = lecture.getDescription();
+        this.runningTime = lecture.getRunningTime();
+        this.createdDate = lecture.getCreatedDate();
+        this.modifiedDate = lecture.getModifiedDate();
     }
 }

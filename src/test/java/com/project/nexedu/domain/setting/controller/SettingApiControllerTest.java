@@ -37,9 +37,7 @@ class SettingApiControllerTest {
     @Test
     void detail() throws Exception {
         //given
-        UserResponseDto responseDto = new UserResponseDto();
-        responseDto.setId(1L);
-        responseDto.setUsername("testUser");
+        UserResponseDto responseDto = new UserResponseDto(1L, null, "testUser", null, null, null, null);
 
         when(userService.getCurrentUserResponseDto()).thenReturn(responseDto);
 

@@ -34,7 +34,7 @@ public class CommentService {
         Comment comment = commentSaveRequestDto.toEntity();
         Comment savedComment = commentRepository.save(comment);
 
-        return new CommentResponseDto(savedComment.getId(), savedComment.getContent(), savedComment.getBoard(), savedComment.getWriter(), savedComment.getCreatedDate(), savedComment.getModifiedDate());
+        return new CommentResponseDto(savedComment);
     }
 
     @Transactional

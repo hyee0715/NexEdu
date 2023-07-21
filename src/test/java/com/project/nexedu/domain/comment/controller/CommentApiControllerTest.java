@@ -52,8 +52,7 @@ class CommentApiControllerTest {
 
         User user = new User();
 
-        CommentResponseDto responseDto = new CommentResponseDto();
-        responseDto.setId(1L);
+        CommentResponseDto responseDto = new CommentResponseDto(1L, null, null, null, null, null);
 
         when(userService.getCurrentUser()).thenReturn(user);
         when(commentService.save(any(Long.class), any(CommentSaveRequestDto.class), any(User.class))).thenReturn(responseDto);
