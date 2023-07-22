@@ -25,6 +25,12 @@ public class CommentApiController {
         return ResponseEntity.ok(commentResponseDto.getId());
     }
 
+    @GetMapping("/{boardId}/comments/{commentId}")
+    public ResponseEntity<CommentResponseDto> findById(@PathVariable Long boardId, @PathVariable Long commentId, @RequestBody CommentUpdateRequestDto commentUpdateRequestDto) {
+        CommentResponseDto commentResponseDto = commentService.findById(commentId);
+        return ResponseEntity.ok(commentResponseDto);
+    }
+
     @PutMapping("/{boardId}/comments/{commentId}")
     public ResponseEntity update(@PathVariable Long boardId, @PathVariable Long commentId, @RequestBody CommentUpdateRequestDto commentUpdateRequestDto) {
         commentService.update(commentId, commentUpdateRequestDto);
