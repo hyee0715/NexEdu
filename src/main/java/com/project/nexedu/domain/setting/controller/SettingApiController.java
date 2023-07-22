@@ -39,13 +39,13 @@ public class SettingApiController {
             PasswordValidationSequence.class, EmailValidationSequence.class}) @RequestBody UserUpdateRequestDto userUpdateRequestDto) {
         Long updatedUserId = userService.update(userUpdateRequestDto);
 
-        return ResponseEntity.ok("회원 정보 수정 완료, id = " + updatedUserId);
+        return ResponseEntity.ok(updatedUserId);
     }
 
     @DeleteMapping("/user/detail/{userId}")
     public ResponseEntity delete(@PathVariable("userId") Long userId) {
         userService.deleteById(userId);
 
-        return ResponseEntity.ok("회원 삭제 완료");
+        return ResponseEntity.ok(userId);
     }
 }
